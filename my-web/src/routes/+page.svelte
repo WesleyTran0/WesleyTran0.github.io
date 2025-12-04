@@ -1,9 +1,20 @@
-<script>
+<script lang="ts">
+	import Card from '$lib/components/Card.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
 </script>
 
-<div>
-	<Navbar />
+<Navbar />
+<div class="flex flex-col max-w-240 mx-auto items-center justify-center px-6 py-5">
+	<Card>
+		<header class="flex flex-row text-2xl font-bold pb-4">
+			Hi, I'm Wesley <div class="font-normal px-2">ᕕ( ᐛ )ᕗ</div>
+		</header>
+		<div class="text-center">
+			This is my personal website, a hub I use to store and document my projects, hobbies, and
+			processes.
+		</div>
+		<div class="text-center">
+			If you see anything interesting, feel free to reach out! I would love to talk about it.
+		</div>
+	</Card>
 </div>
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
