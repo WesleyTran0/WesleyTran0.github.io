@@ -21,4 +21,15 @@
 
 	--shadow-glow: 0 10px 30px rgba(124, 106, 239, 0.25);
 	--shadow-glow-sm: 0 8px 25px rgba(124, 106, 239, 0.15);
+
+	--animate-gradient-shift: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+	0% {
+		background-position: 0% center;
+	}
+	100% {
+		background-position: 200% center;
+	}
 }

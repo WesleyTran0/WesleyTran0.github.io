@@ -1,8 +1,25 @@
-<div class="w-full h-14">
-	<nav class="flex flex-row justify-center items-center px-6">
-		<div class="flex gap-2">
-			<a href="/">Home</a>
-			<a href="/projects">Projects</a>
+<script lang="ts">
+	import { page } from '$app/state';
+
+	const navLinks = [
+		{ label: 'Home', href: '/' },
+		{ label: 'Projects', href: '/projects' }
+	];
+</script>
+
+<div class="flex w-full h-14 items-center justify-center">
+	<nav class="flex flex-row px-6">
+		<div class="flex gap-6">
+			{#each navLinks as link}
+				<a
+					href={link.href}
+					class="transition-colors {page.url.pathname === link.href
+						? 'text-primary underline underline-offset-8 decoration-accent decoration-2'
+						: 'text-secondary'}"
+				>
+					{link.label}
+				</a>
+			{/each}
 		</div>
 	</nav>
 </div>
