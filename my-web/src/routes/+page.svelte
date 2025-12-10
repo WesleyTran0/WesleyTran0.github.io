@@ -8,7 +8,7 @@
 	<Card>
 		<header class="flex flex-row text-2xl text-accent font-bold pb-4">
 			Hi, I'm Wesley <div
-				class="font-normal px-2 bg-linear-to-r from-blue-400 via-green-600 to-yellow-400 gradient-animation bg-clip-text text-transparent bg-[length:200%_auto]"
+				class="font-normal px-2 bg-linear-to-r from-blue-400 via-green-600 to-yellow-400 gradient-animation bg-clip-text text-transparent bg-size-[200%_auto]"
 			>
 				ᕕ( ᐛ )ᕗ
 			</div>
