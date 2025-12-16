@@ -18,7 +18,8 @@
 	);
 
 	let summary = $derived(
-		summaries[`/src/lib/projects/${title}/${title}_summary.md`]?.default ?? ''
+		summaries[`/src/lib/projects/${title}/${title}_summary.md`]?.default ??
+			'Could not get ' + title + "\'s summary"
 	);
 
 	// NOTE: markdown to html exploration maybe ?
@@ -28,6 +29,6 @@
 
 <Card>
 	<h1>{heading ?? title}</h1>
-	<img src={image} alt={'preview of ' + title} loading="lazy" />
+	<img src={image} alt={title + ' iamge failed to load'} loading="lazy" />
 	<p>{summary}</p>
 </Card>
