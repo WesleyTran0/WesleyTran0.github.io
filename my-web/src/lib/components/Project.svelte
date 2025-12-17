@@ -27,8 +27,14 @@
 	// <div>{@html summaryHtml}</div>
 </script>
 
-<Card>
-	<h1>{heading ?? title}</h1>
-	<img src={image} alt={title + ' iamge failed to load'} loading="lazy" />
-	<p>{summary}</p>
+<Card class="flex flex-cols gap-3">
+	{#if image}
+		<div class="flex items-center justify-center">
+			<img src={image} alt={title + ' image failed to load'} loading="lazy" />
+		</div>
+	{/if}
+	<div>
+		<h1>{heading ?? title}</h1>
+		<p>{summary}</p>
+	</div>
 </Card>

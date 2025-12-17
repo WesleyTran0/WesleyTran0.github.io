@@ -9,8 +9,6 @@
 	let { children, class: className = '' }: Props = $props();
 </script>
 
-<div
-	class="bg-surface border border-border rounded-3xl p-10 backdrop-blur-md break-all {className}"
->
+<div class="bg-surface border border-border rounded-3xl p-10 backdrop-blur-md {className}">
 	{@render children()}
 </div>

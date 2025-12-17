@@ -7,7 +7,7 @@
 	];
 </script>
 
-<div class="flex w-full h-16 items-center justify-center">
+<div class="flex w-full h-16 items-center justify-center border-b border-border">
 	<nav class="flex flex-row px-6">
 		<div class="flex gap-6">
 			{#each navLinks as link}

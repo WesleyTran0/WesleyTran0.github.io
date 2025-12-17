@@ -1,3 +1,6 @@
 # allow crawling everything by default
 User-agent: *
 Disallow:
+
+# shorelark (rust simulation), MVC Sanguine, CESK PL OCaml, Search, GoodDog, pngme.
+
