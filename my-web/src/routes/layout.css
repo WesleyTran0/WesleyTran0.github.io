@@ -25,6 +25,30 @@
 	--animate-gradient-shift: gradient-shift 3s ease infinite;
 }
 
+@layer base {
+	header {
+		@apply text-2xl font-bold text-accent;
+	}
+
+	h1 {
+		@apply text-xl font-bold text-accent;
+	}
+
+	h1 {
+		@apply text-lg font-bold text-accent;
+	}
+
+	ul {
+		@apply list-disc pl-5;
+	}
+}
+
+@layer components {
+	.prose :where(h1, h2, h3, h4, h5, h6) {
+		all: revert-layer;
+	}
+}
+
 @keyframes gradient-shift {
 	0% {
 		background-position: 0% center;
