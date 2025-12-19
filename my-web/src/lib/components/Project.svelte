@@ -7,9 +7,10 @@
 		heading?: string;
 		image?: string;
 		size: 'small' | 'large';
+		altText?: string;
 	}
 
-	let { title, heading, image, size }: ProjectProps = $props();
+	let { title, heading, image, size, altText }: ProjectProps = $props();
 
 	const summaries: Record<string, { default: string }> = import.meta.glob(
 		'/src/lib/projects/*/*.md',
@@ -20,8 +21,8 @@
 	);
 
 	let summary = $derived(
-		summaries[`/src/lib/projects/${title}/${title}_summary.md`]?.default ??
-			'Could not get ' + title + "\'s summary"
+		summaries[`/src/lib/projects/${title.toLowerCase()}/${title.toLowerCase()}_summary.md`]
+			?.default ?? 'Could not get ' + title + "\'s summary"
 	);
 
 	let summaryHtml = $derived(marked.parse(summary));
@@ -32,13 +33,22 @@
 <Card class={styling + ' gap-4'}>
 	{#if image}
 		<div class="flex items-center justify-center {size === 'large' ? 'order-2' : 'order-first'}">
-			<img src={image} alt={title + ' image failed to load'} loading="lazy" />
+			<img
+				src={image}
+				alt={title + ' image failed to load'}
+				loading="lazy"
+				class="rounded-xl border border-border"
+			/>
 		</div>
 	{/if}
 	<div class={size === 'large' ? 'order-1' : ''}>
 		<header>{heading ?? title}</header>
-		<div class="space-y-4">
-			{@html summaryHtml}
+		<div class="space-y-4 pt-4">
+			{#if altText}
+				{altText}
+			{:else}
+				{@html summaryHtml}
+			{/if}
 		</div>
 	</div>
 </Card>

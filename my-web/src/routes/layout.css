@@ -27,7 +27,7 @@
 
 @layer base {
 	header {
-		@apply text-2xl font-bold text-accent;
+		@apply text-3xl font-bold text-accent;
 	}
 
 	h1 {

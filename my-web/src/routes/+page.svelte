@@ -29,5 +29,10 @@
 	</Card>
 </div>
 <div class="grid grid-rows-2 gap-4">
-	<Project title="test_featured" heading="Latest Work" size="small" image="fuck" />
+	<Project
+		title="Shorelark"
+		heading="Featured: Shorelark"
+		size="small"
+		image="/src/lib/projects/shorelark/shorelark.gif"
+	/>
 </div>
