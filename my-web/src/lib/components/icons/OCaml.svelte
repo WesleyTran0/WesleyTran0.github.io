@@ -80,5 +80,5 @@
 			</clipPath>
 		</defs>
 	</svg>
-	<p>OCaml</p>
+	<span>OCaml</span>
 </Card>

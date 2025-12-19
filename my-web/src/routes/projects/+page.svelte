@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '$lib/components/Button.svelte';
 	import Project from '$lib/components/Project.svelte';
 	import Rust from '$lib/components/icons/Rust.svelte';
 	import Wasm from '$lib/components/icons/Wasm.svelte';
@@ -11,5 +12,6 @@
 			<Rust />
 			<Wasm />
 		</div>
+		<Button icon="github" href="https://github.com/WesleyTran0/shorelark">View on Github</Button>
 	</div>
 </div>

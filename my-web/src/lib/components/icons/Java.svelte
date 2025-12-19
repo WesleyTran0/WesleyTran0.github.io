@@ -20,5 +20,5 @@
 			</clipPath>
 		</defs>
 	</svg>
-	<p>Java</p>
+	<span>Java</span>
 </Card>

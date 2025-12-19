@@ -4,7 +4,7 @@ With the growing conversation around AI and machine learning, I wanted to explor
 concepts hands-on while also diving into Rust—a language I'd been eager to learn at a larger
 project scale, beyond simple exercises and isolated tutorials.
 
-I chose to follow Patryk Wychowaniec's "Learning to Fly" series as my guide for this project.
+I chose to follow Patryk Wychowaniec's ["Learning to Fly"](https://pwy.io/posts/learning-to-fly-pt1/) series as my guide for this project.
 The series not only walked me through Rust's syntax and core concepts in a practical context,
 but also handled the underlying mathematics of the neural network and genetic algorithm implementation.
 More importantly, it provided a solid baseline that I could understand, build upon, and

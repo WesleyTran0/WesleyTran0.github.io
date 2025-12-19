@@ -14,8 +14,8 @@
 				<a
 					href={link.href}
 					class="transition-colors {page.url.pathname === link.href
-						? 'text-primary underline underline-offset-8 decoration-accent decoration-2'
-						: 'text-secondary'}"
+						? 'text-primary underline underline-offset-8! decoration-accent decoration-2'
+						: 'text-secondary no-underline'}"
 				>
 					{link.label}
 				</a>

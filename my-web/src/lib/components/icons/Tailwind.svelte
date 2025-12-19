@@ -31,5 +31,5 @@
 			</clipPath>
 		</defs>
 	</svg>
-	<p>TailwindCSS</p>
+	<span>TailwindCSS</span>
 </Card>

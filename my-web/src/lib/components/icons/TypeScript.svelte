@@ -26,5 +26,5 @@
 			</clipPath>
 		</defs>
 	</svg>
-	<p>TypeScript</p>
+	<span>TypeScript</span>
 </Card>

@@ -9,5 +9,5 @@
 			fill="#FF7043"
 		/>
 	</svg>
-	<p>Rust</p>
+	<span>Rust</span>
 </Card>

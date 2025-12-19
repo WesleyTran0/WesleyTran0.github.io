@@ -22,5 +22,5 @@
 			</clipPath>
 		</defs>
 	</svg>
-	<p>TRPC</p>
+	<span>TRPC</span>
 </Card>

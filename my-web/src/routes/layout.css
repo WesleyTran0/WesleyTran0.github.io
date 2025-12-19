@@ -41,6 +41,10 @@
 	ul {
 		@apply list-disc pl-5;
 	}
+
+	a {
+		@apply text-accent hover:text-accent-light;
+	}
 }
 
 @layer components {

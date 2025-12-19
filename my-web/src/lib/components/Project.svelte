@@ -12,6 +12,7 @@
 
 	let { title, heading, image, size, altText }: ProjectProps = $props();
 
+	// find all summaries via glob
 	const summaries: Record<string, { default: string }> = import.meta.glob(
 		'/src/lib/projects/*/*.md',
 		{
@@ -20,12 +21,18 @@
 		}
 	);
 
-	let summary = $derived(
+	// make a renderer so that links in markdown get parsed into <a> that open in new tab
+	const renderer = new marked.Renderer();
+	renderer.link = ({ href, title, text }) => {
+		return `<a href="${href}" target="_blank" rel="noopener noreferrer"${title ? ` title="${title}"` : ''}>${text}</a>`;
+	};
+	marked.setOptions({ renderer });
+
+	const rawSummary = $derived(
 		summaries[`/src/lib/projects/${title.toLowerCase()}/${title.toLowerCase()}_summary.md`]
 			?.default ?? 'Could not get ' + title + "\'s summary"
 	);
-
-	let summaryHtml = $derived(marked.parse(summary));
+	const summaryHtml = $derived(marked.parse(rawSummary));
 
 	const styling = $derived(size === 'large' ? 'flex flex-col' : 'flex flex-row');
 </script>

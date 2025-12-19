@@ -28,5 +28,5 @@
 			</clipPath>
 		</defs>
 	</svg>
-	<p>React</p>
+	<span>React</span>
 </Card>

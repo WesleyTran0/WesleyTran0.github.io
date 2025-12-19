@@ -20,5 +20,5 @@
 			</clipPath>
 		</defs>
 	</svg>
-	<p>Web Assembly</p>
+	<span>Web Assembly</span>
 </Card>
