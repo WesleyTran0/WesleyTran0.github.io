@@ -1,22 +1,20 @@
 <script lang="ts">
-	import '../app.css';
+	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import NavBar from '$lib/components/NavBar.svelte';
-
-	export const prerender = true;
+	import Navbar from '$lib/components/Navbar.svelte';
 
 	let { children } = $props();
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>Wesley Tran - Developer</title>
 </svelte:head>
 
-<div class="bg-background text-foreground">
-	<NavBar />
-
-	<main class="mx-auto max-w-3xl px-2 py-5">
-		{@render children?.()}
-	</main>
+<div
+	class="min-h-screen bg-background text-secondary font-sans antialiased leading-relaxed text-lg"
+>
+	<Navbar />
+	<div class="flex flex-col justify-center max-w-280 mx-auto items-center px-6 py-5 gap-4">
+		{@render children()}
+	</div>
 </div>
