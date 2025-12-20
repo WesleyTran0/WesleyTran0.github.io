@@ -5,13 +5,30 @@
 	import Wasm from '$lib/components/icons/Wasm.svelte';
 </script>
 
-<div class="flex flex-row">
+<div class="flex flex-col gap-10">
 	<div class="flex flex-col space-y-1">
-		<Project title="Shorelark" size="large" image="/src/lib/projects/shorelark/shorelark.gif" />
+		<Project
+			heading="Shorelark — A Neural Network Simulation"
+			title="Shorelark"
+			size="large"
+			image="/src/lib/projects/shorelark/shorelark.gif"
+		/>
 		<div class="flex flow-row gap-2">
 			<Rust />
 			<Wasm />
 		</div>
 		<Button icon="github" href="https://github.com/WesleyTran0/shorelark">View on Github</Button>
+	</div>
+	<div class="flex flex-col space-y-1">
+		<Project
+			heading="PNGme — Encode Secret Messages in PNGs"
+			title="PNGme"
+			size="large"
+			image="/src/lib/projects/pngme/pngme.gif"
+		/>
+		<div class="flex flow-row gap-2">
+			<Rust />
+		</div>
+		<Button icon="github" href="https://github.com/WesleyTran0/pngme">View on Github</Button>
 	</div>
 </div>
