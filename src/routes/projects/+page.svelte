@@ -8,6 +8,11 @@
 	import pngmeGif from '$lib/projects/pngme/pngme.gif';
 </script>
 
+<svelte:head>
+	<title>Wesley Tran | Projects</title>
+	<meta name="description" content="Wesley's personal portfolio" />
+</svelte:head>
+
 <div class="flex flex-col gap-10">
 	<div class="flex flex-col space-y-1">
 		<Project

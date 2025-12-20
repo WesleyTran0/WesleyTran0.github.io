@@ -8,6 +8,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<meta name="description" content="Wesley's personal portfolio" />
 </svelte:head>
 
 <div

@@ -5,6 +5,11 @@
 	import shorelarkGif from '$lib/projects/shorelark/shorelark.gif';
 </script>
 
+<svelte:head>
+	<title>Wesley Tran | Home</title>
+	<meta name="description" content="Wesley's personal portfolio" />
+</svelte:head>
+
 <div class="flex flex-row w-full gap-4">
 	<div class="flex items-center">
 		<img
