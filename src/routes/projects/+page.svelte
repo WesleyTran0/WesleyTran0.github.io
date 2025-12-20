@@ -3,6 +3,9 @@
 	import Project from '$lib/components/Project.svelte';
 	import Rust from '$lib/components/icons/Rust.svelte';
 	import Wasm from '$lib/components/icons/Wasm.svelte';
+
+	import shorelarkGif from '$lib/projects/shorelark/shorelark.gif';
+	import pngmeGif from '$lib/projects/pngme/pngme.gif';
 </script>
 
 <div class="flex flex-col gap-10">
@@ -11,7 +14,7 @@
 			heading="Shorelark — A Neural Network Simulation"
 			title="Shorelark"
 			size="large"
-			image="/src/lib/projects/shorelark/shorelark.gif"
+			image={shorelarkGif}
 		/>
 		<div class="flex flow-row gap-2">
 			<Rust />
@@ -24,7 +27,7 @@
 			heading="PNGme — Encode Secret Messages in PNGs"
 			title="PNGme"
 			size="large"
-			image="/src/lib/projects/pngme/pngme.gif"
+			image={pngmeGif}
 		/>
 		<div class="flex flow-row gap-2">
 			<Rust />

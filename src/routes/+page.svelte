@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
 	import Project from '$lib/components/Project.svelte';
+
+	import shorelarkGif from '$lib/projects/shorelark/shorelark.gif';
 </script>
 
 <div class="flex flex-row w-full gap-4">
@@ -29,10 +31,5 @@
 	</Card>
 </div>
 <div class="grid grid-rows-2 gap-4">
-	<Project
-		title="Shorelark"
-		heading="Featured: Shorelark"
-		size="small"
-		image="/src/lib/projects/shorelark/shorelark.gif"
-	/>
+	<Project title="Shorelark" heading="Featured: Shorelark" size="small" image={shorelarkGif} />
 </div>
