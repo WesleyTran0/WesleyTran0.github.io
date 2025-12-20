@@ -3,7 +3,6 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import Navbar from '$lib/components/Navbar.svelte';
 
-	export const prerender = true;
 	let { children } = $props();
 </script>
 
