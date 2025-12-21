@@ -45,5 +45,5 @@
 			fill="#F5F8FA"
 		/>
 	</svg>
-	<span>Rust</span>
+	<span>PostgreSQL</span>
 </Card>

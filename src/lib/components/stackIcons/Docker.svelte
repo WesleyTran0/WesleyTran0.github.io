@@ -58,5 +58,5 @@
 			/>
 		</g>
 	</svg>
-	<span>Prisma</span>
+	<span>Docker</span>
 </Card>

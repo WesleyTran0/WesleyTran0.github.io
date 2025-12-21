@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import Github from './icons/Github.svelte';
+	import Github from './stackIcons/Github.svelte';
 
 	interface Props {
 		href: string;

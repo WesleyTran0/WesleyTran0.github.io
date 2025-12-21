@@ -1,20 +1,23 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import Project from '$lib/components/Project.svelte';
-	import Rust from '$lib/components/icons/Rust.svelte';
-	import Wasm from '$lib/components/icons/Wasm.svelte';
 
-	import shorelarkGif from '$lib/projects/shorelark/shorelark.gif';
-	import pngmeGif from '$lib/projects/pngme/pngme.gif';
 	import goodDogImg from '$lib/projects/good-dog-licensing/good-dog-licensing.png';
+	import pngmeGif from '$lib/projects/pngme/pngme.gif';
 	import searchNEUImg from '$lib/projects/searchneu/searchneu.png';
-	import Next from '$lib/components/icons/Next.svelte';
-	import React from '$lib/components/icons/React.svelte';
-	import TypeScript from '$lib/components/icons/TypeScript.svelte';
-	import TRPC from '$lib/components/icons/TRPC.svelte';
-	import Prisma from '$lib/components/icons/Prisma.svelte';
-	import Postgres from '$lib/components/icons/Postgres.svelte';
-	import Docker from '$lib/components/icons/Docker.svelte';
+	import shorelarkGif from '$lib/projects/shorelark/shorelark.gif';
+
+	import Docker from '$lib/components/stackIcons/Docker.svelte';
+	import Next from '$lib/components/stackIcons/Next.svelte';
+	import Postgres from '$lib/components/stackIcons/Postgres.svelte';
+	import Prisma from '$lib/components/stackIcons/Prisma.svelte';
+	import React from '$lib/components/stackIcons/React.svelte';
+	import Scss from '$lib/components/stackIcons/Scss.svelte';
+	import TRPC from '$lib/components/stackIcons/TRPC.svelte';
+	import Tailwind from '$lib/components/stackIcons/Tailwind.svelte';
+	import TypeScript from '$lib/components/stackIcons/TypeScript.svelte';
+	import Rust from '$lib/components/stackIcons/Rust.svelte';
+	import Wasm from '$lib/components/stackIcons/Wasm.svelte';
 </script>
 
 <svelte:head>
@@ -34,6 +37,7 @@
 			<Next />
 			<React />
 			<TypeScript />
+			<Tailwind />
 			<TRPC />
 			<Prisma />
 			<Postgres />
@@ -82,6 +86,7 @@
 			<Next />
 			<React />
 			<TypeScript />
+			<Scss />
 			<Prisma />
 			<Postgres />
 			<Docker />
