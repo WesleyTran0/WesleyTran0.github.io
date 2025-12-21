@@ -42,6 +42,10 @@
 		@apply list-disc pl-5;
 	}
 
+	ol {
+		@apply ml-8 list-inside list-decimal;
+	}
+
 	a {
 		@apply text-accent hover:text-accent-light;
 	}
