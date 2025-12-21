@@ -2,5 +2,5 @@
 User-agent: *
 Disallow:
 
-# MVC Sanguine, CESK PL OCaml, Search, GoodDog
+# MVC Sanguine, CESK PL OCaml, SeamCarver?, MazeSolver?
 

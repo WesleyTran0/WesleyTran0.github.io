@@ -7,6 +7,7 @@
 	import shorelarkGif from '$lib/projects/shorelark/shorelark.gif';
 	import pngmeGif from '$lib/projects/pngme/pngme.gif';
 	import goodDogImg from '$lib/projects/good-dog-licensing/good-dog-licensing.png';
+	import searchNEUImg from '$lib/projects/searchneu/searchneu.png';
 	import Next from '$lib/components/icons/Next.svelte';
 	import React from '$lib/components/icons/React.svelte';
 	import TypeScript from '$lib/components/icons/TypeScript.svelte';
@@ -69,5 +70,25 @@
 			<Rust />
 		</div>
 		<Button icon="github" href="https://github.com/WesleyTran0/pngme">View on Github</Button>
+	</div>
+	<div class="flex flex-col space-y-1">
+		<Project
+			heading="SearchNEU — A Course Catalog Made by Students for Students"
+			title="searchNEU"
+			size="large"
+			image={searchNEUImg}
+		/>
+		<div class="flex flow-row gap-2">
+			<Next />
+			<React />
+			<TypeScript />
+			<Prisma />
+			<Postgres />
+			<Docker />
+		</div>
+		<div class="flex flex-row">
+			<Button href="https://searchneu.com/">Check it out</Button>
+			<Button icon="github" href="https://github.com/sandboxnu/searchneu">View on Github</Button>
+		</div>
 	</div>
 </div>
