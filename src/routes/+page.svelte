@@ -3,6 +3,7 @@
 	import Project from '$lib/components/Project.svelte';
 
 	import shorelarkGif from '$lib/projects/shorelark/shorelark.gif';
+	import Icon from '@iconify/svelte';
 </script>
 
 <svelte:head>
@@ -19,8 +20,8 @@
 			class="w-60 h-56 rounded-full object-cover"
 		/>
 	</div>
-	<Card class="">
-		<header class="flex flex-row pb-4">
+	<Card class="space-y-4">
+		<header class="flex flex-row">
 			Hi, I'm Wesley <div
 				class="font-normal px-2 bg-linear-to-r from-accent via-fuchsia-500 to-cyan-400 gradient-animation bg-clip-text text-transparent bg-size-[200%_auto]"
 			>
@@ -30,8 +31,20 @@
 		<div>
 			This is my personal website, a space for me to document my projects, hobbies, and processes.
 		</div>
-		<div class="pt-4">
+		<div class="">
 			If you see anything interesting, feel free to reach out! I would love to talk about it.
+		</div>
+		<div class="flex flex-row items-center space-x-2">
+			<p>Find me on</p>
+			<a href="mailto:tran.we@northeastern.edu" target="_blank" rel="noopener noreferrer">
+				<Icon icon="material-symbols:mail-outline" class="h-8 w-8" />
+			</a>
+			<a href="https://www.linkedin.com/in/wesley-tran/" target="_blank" rel="noopener noreferrer">
+				<Icon icon="mdi:linkedin" class="h-8 w-8" />
+			</a>
+			<a href="https://github.com/WesleyTran0" target="_blank" rel="noopener noreferrer">
+				<Icon icon="mdi:github" class="h-8 w-8" />
+			</a>
 		</div>
 	</Card>
 </div>
