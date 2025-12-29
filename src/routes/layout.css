@@ -31,10 +31,10 @@
 	}
 
 	h1 {
-		@apply text-xl font-bold text-accent;
+		@apply text-xl font-bold text-accent-light;
 	}
 
-	h1 {
+	h2 {
 		@apply text-lg font-bold text-accent;
 	}
 
