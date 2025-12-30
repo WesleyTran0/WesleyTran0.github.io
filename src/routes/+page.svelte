@@ -47,7 +47,7 @@
 	</Card>
 </div>
 <Card class="space-y-4">
-	<header class="flex text-center w-full">About me</header>
+	<header class="flex text-center w-full">About Me</header>
 	<div>
 		I am a student studying Cybersecurity at Northeastern University with a passion for developing
 		secure systems and applications.
