@@ -30,6 +30,18 @@
 		@apply text-3xl font-bold text-accent;
 	}
 
+	pre {
+		@apply overflow-x-auto rounded-lg border border-border bg-black/30 p-4 font-mono text-sm text-secondary;
+	}
+
+	code {
+		@apply rounded bg-black/20 px-1.5 py-0.5 font-mono text-[0.9em] text-accent-light;
+	}
+
+	pre code {
+		@apply border-none bg-transparent p-0 text-secondary;
+	}
+
 	h1 {
 		@apply text-xl font-bold text-accent-light;
 	}
