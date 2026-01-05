@@ -83,3 +83,113 @@ and adding an ssh key to the proxmox machine for more security (and to avoid nee
 on to actually using proxmox to set up the things I wanted, the first being a **media server**.
 
 ## Media Server - PROGRESS!
+
+With proxmox set up and accessible from my domain, the most difficult part was over.
+
+Now to move on to why I wanted a Proxmox environment in the first place: controlling x amount of space to perform y task all managed in one platform.
+Up first is my media server, as my phone is reaching the end of its storage pool and my family has been asking me to move their phone photos to a usb.
+
+First up was choosing which media service to use. I'm sure there are many options for a media server but the ones I was stuck on were
+[Immich](https://immich.app/) and [Nextcloud](https://nextcloud.com/). While Immich optimized for the best photo and video uploading and viewing experience,
+Nextcloud had a lighter and more file storage approach. Things like face recognition and timeline view were appealing from Immich but I ended up choosing
+Nextcloud because I was hoping this media server to really be a storage server where I can put my documents and upload my photos.
+
+I now wanted to start the process of actually installing Nextcloud, and the first minor difficulty was actually with Proxmox. Having owned and barely used
+a virtualization platform before, I was a little confused on how I was going to get ISOs into proxmox or what I needed to do to create VMs. To that end, I
+spent some time on my proxmox just googling all these questions and learning: how to download at least an Ubuntu server and Windows ISO for VMs, what an
+LXC container is and its pros/cons compared to traditional VMs, all the settings and optimizations I can work with when creating, managing, and taking down VMs.
+
+Once that was finished, it was time to actually create the machine (for lack of a better word) that my Nextcloud instance was going to live on.
+For this, I chose to install it on an LXC container for a couple reasons. Partially, since I had just learned what an LXC container was (shiny object syndrome is what I call it)
+but mostly because for a low performance/lightweight service like Nextcloud, it seemed perfect.
+
+Next, I needed to figure out how to actually install Nextcloud, and it was here that I learned what Nextcloud actually was. Looking at tutorials I found
+on how to install Nextcloud, I was confused on why something like Apache and MariaDB were being mentioned. After doing the research, I realized that
+instead of a service that handles everything on its own, Nextcloud was a web app that sits on top of web servers (Apache), stores data in a relational database (MariaDB), all
+configured by the app's home language (PHP). This makes a lot of sense considering what Nextcloud is, and honestly I am a little embarrassed that I didn't
+look into it before deciding to install it, but we go on.
+
+I started by installing tools and services with the following bash commands and began with setting up the database. Since
+I didn't want to focus too much on database setup, I used the script that comes with mariadb: `mysql_secure_installation`. Then I created a database user that
+would act as an admin with `mysql -u root -p` and gave it a password and then created a nextcloud database that nextcloud would be able to store files into with
+this sequence of commands:
+
+```bash
+apt update && apt upgrade -y
+apt install -y apache2 mariadb-server libapache2-mod-php \
+  php php-gd php-mysql php-curl php-mbstring php-intl \
+  php-gmp php-bcmath php-xml php-imagick php-zip php-bz2 \
+  unzip wget
+```
+
+```sql
+CREATE DATABASE nextcloud;
+CREATE USER 'nextcloud'@'localhost' IDENTIFIED BY '<enter a password here>';
+GRANT ALL PRIVILEGES ON nextcloud.* TO 'nextcloud'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+With that, the database was set up and I could start to install and configure Nextcloud. Now this next part is something I have yet to look into fully,
+but I will explain to what I understand and assume using my knowledge of what Nextcloud is and how it interacts with Apache. Since Nextcloud is
+simply an application sitting on top of a web sever (like Apache) we simply download and unzip the entire project and put it into the /var/www/ folder,
+which is Apache's default folder for storing the web content it will display. By moving the nextcloud/ folder to /var/www/nextcloud/ and changing the configs later,
+we are basically telling Apache that this application exists and that requests coming in should interact according to the logic in this folder.
+
+Next, since running Apache, an application with the concept of accepting public web traffic and requests, would be a nightmare to run as `root`, Apache creates a
+user and group named www-data upon installation and runs the apache service with those permissions. We want to set the owner and group of `/var/www/nextcloud/` to www-data
+so that it runs with the same lowered permissions that Apache does. That explanation was my logic and understanding of the following commands and really
+showed me just how easy it is to miss something and misconfigure things, but also makes me appreciate simple installers where I just agree to their terms, set a couple options,
+and click install.
+
+```bash
+cd /tmp
+wget https://download.nextcloud.com/server/releases/latest.zip
+unzip latest.zip
+mv nextcloud /var/www/
+chown -R www-data:www-data /var/www/nextcloud
+```
+
+With Nextcloud actually installed, we now needed to configure it so it becomes usable and the first step of that is Apache. Creating and writing a configuration
+for a new service running on Apache means creating a \<name\>.conf file in `/etc/apache2/sites-available/` folder. Using `vim`, I wrote the following config into
+`/etc/apache2/sites-available/nextcloud.conf` and will again explain as simple as possible to my understanding.
+
+```apache
+<VirtualHost *:80>
+    DocumentRoot /var/www/nextcloud
+    ServerName localhost
+
+    <Directory /var/www/nextcloud/>
+        Require all granted
+        AllowOverride All
+        Options FollowSymLinks MultiViews
+    </Directory>
+</VirtualHost>
+```
+
+We start by specifying that this service is going to be running on port 80 and will be rooted in the `/var/www/nextcloud` folder (which makes sense, we just moved the application there),
+Next, we'll specify to Apache to use all the permissions granted to the folder (as Nextcloud will need those permissions to function) and to follow all SymLinks that the Nextcloud app
+says to follow.
+
+With that configuration completed, we'll tell Apache to enable Nextcloud and disable the default configs and rewrite modules to allow for the full functionality of Nextcloud:
+
+```bash
+a2ensite nextcloud.conf
+a2dissite 000-default.conf
+a2enmod rewrite headers env dir mime
+systemctl restart apache2
+```
+
+With that, the final thing we needed to do was to configure php to allow for file uploads that, in other contexts, may slow down an application or be malicious.
+These configs are found in `/etc/php/<version>/apache2/php.ini` with \<version\> being the php (or nextcloud, I honestly can't remember which) version that you happened to be installing.
+We'll need to find and adjust the following:
+
+```
+memory_limit = 512M         // to allow for faster and larger uploads
+upload_max_filesize = 16G   // to allow for larger files to be uploaded
+post_max_size = 16G         // to allow for large POST requests to be made
+max_execution_time = 300    // letting requests take longer to account for large file uploads
+```
+
+A simple `systemctl restart apache2` later and our Nextcloud is accessible at `http://<containter-ip>` where we can set up an Admin username and password,
+point the Nextcloud database user to the `nextcloud` user/password we made before, set the database Nextcloud should use to `nextcloud`, and set our host to `localhost`.
