@@ -193,3 +193,45 @@ max_execution_time = 300    // letting requests take longer to account for large
 
 A simple `systemctl restart apache2` later and our Nextcloud is accessible at `http://<containter-ip>` where we can set up an Admin username and password,
 point the Nextcloud database user to the `nextcloud` user/password we made before, set the database Nextcloud should use to `nextcloud`, and set our host to `localhost`.
+
+I now had a decision to make: do I stop here and limit access to Nextcloud to my home internet, making the server act as a backup server that I periodically access, or instead, make the server
+accessible from anywhere using another tunnel, Tailscale, or just port forwarding. While it would have been easier to just leave it, I opted to just use another cloudflare tunnel as
+I had just did that for proxmox and having my files accessible from everywhere just seemed like a no brainer.
+
+With Nextcloud already running and set up, this should be pretty simple right. To start, I needed to change the Apache configuration to change the `ServerName`
+from `localhost` to my desired site (in my case it was just \<subdomain\>.\<domain I used for proxmox\>). Next, add (or replace) the new ServerName to Nextcloud's
+`trusted_domains` list. Next, we need to go back to Proxmox's terminal and configure a cloudflare tunnel with a new ingress rule
+(basically telling adding the IP of my container to cloudflare's DNS records and properly routing us). This is where the first minor problem arose.
+When I was setting up the container, I had the network set to get a dynamic IP from the router, meaning I wouldn't have one single IP that
+I could reliably say should point to my Nextcloud. That wasn't too hard of a fix: just give the container a static IP, set the gateway to my router's address, and reboot the container.
+Now that I had a static ip, we can configure an ingress rule for cloudflare by adding:
+
+```yaml
+- hostname: <subdomain>.<domain>
+    service: http://<container-ip>:80
+```
+
+and we should have a working site after a quick `cloudflared tunnel route dns homelab subdomain.domain` (to route traffic from subdomain.domain to
+this ip in the homelab tunnel group we made earlier) and `systemctl restart cloudflared` we should be up and running. So I go to `https://subdomain.domain` and....
+
+I was met with an error 404. Well that's not good.
+
+To start, I went to the Nextcloud container's static IP and was able to hit the Nextcloud login page just fine. Even using `curl -L` from both the container and proxmox terminal
+returned roughly the right html. After a couple minutes of confusion and trying to understand what I did different from the first tunnel I installed, I eventually learned that
+edits to `~/.cloudflared/config.yml` don't get copied over to `/etc/cloudflared/config.yml` if the cloudflared service was running (which makes sense but c'mon really). I opened the
+config in `/etc` and sure enough, there wasn't my Nextcloud entry, so I added it. Then I saved the file and ran `systemctl restart cloudflared` and...
+
+**Job for cloudflared.service failed because the control process exited with error code.** Well great, now no tunnels are running!
+
+After checking that my syntax in both yaml files were correct, I ran `cloudflared tunnel --config /etc/cloudflared/config.yml run homelab`, telling me that the
+the cloudflared service was rejecting my credentials even though they existed in the right spot. After checking my cloudflared dashboard and seeing that my tunnel was down,
+I bit the bullet and deleted the tunnel and recreated it with the same name. This honestly wasn't too bad as I just needed to go into `/etc/cloudflared/config.yml` and change
+the tunnel id with the new id I got. I also needed to swap tunnel IDs with the existing DNS routes for the Proxmox and Nextcloud which I ended up doing on the cloudflare portal.
+From there I tested to see if it was working manually first with `cloudflared tunnel run homelab` and finally started the service again with `systemctl start cloudflared`. Now for
+the moment of truth, accessing my Nextcloud's site on my phone and....
+
+Success! Besides from doing some more configuring to turn off skeleton directories, creating users for my family, and basic security configs for the Nextcloud, that was it, I was done.
+
+## The End - Well Sort of
+
+In the end I'm pretty happy with the environment I was able to make.
