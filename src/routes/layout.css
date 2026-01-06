@@ -42,6 +42,10 @@
 		@apply border-none bg-transparent p-0 text-secondary;
 	}
 
+	blockquote {
+		@apply my-4 rounded-r-lg border-l-4 border-accent bg-accent/5 py-2 pl-4 text-secondary italic;
+	}
+
 	h1 {
 		@apply text-xl font-bold text-accent-light;
 	}

@@ -4,6 +4,9 @@ This is not only my first ever full documentation through a project I completed,
 attempt at creating a homelab, and my first ever long-term project that I actually see myself
 accessing and using every single day, BUT it's also my first blog. SO let's get into it.
 
+> **Disclaimer**: As this is my currently my only blog, it is on the **blogs** section. Once I begin to write more, I there will be previews/summaries
+> allowing you to look through all the ones I've written and pick the one you want to read.
+
 ## My Goals
 
 I want to preface not only this blog but also this entire project by saying, I am not looking for
@@ -20,13 +23,13 @@ I knew I wanted to at the very least, learn about:
 
 - How do domains work, and seriously, how do I get one of my own.
 - What is a tunnel, what is Tailscale, how can I possibly open a self-hosted device without having my home internet hacked
-- Make some sort of environment (going into the project, I am hoping proxmox) secure and available from anywhere
+- Make some sort of environment (going into the project, I am hoping Proxmox) secure and available from anywhere
 - Fix the storage problem on my family and I's devices (phones)
 - Be ready to build upon what I have and run experiments on new VMs, without having to worry about clutter on my laptop
 
 ## My Process
 
-Starting this project, I honestly didn't know where to start. I knew I wanted to set up proxmox and knew that it was
+Starting this project, I honestly didn't know where to start. I knew I wanted to set up Proxmox and knew that it was
 one of the more popular virtualization platforms. As for how to access it, I had heard options like Tailscale or opening it to the internet
 but didn't really know how to set any of those up or what these really meant or looked like. Even if I did, I was didn't know if
 those were even my best options. Even if I'm starting out, the whole idea of creating a homelab is to make the bootup/access easy
@@ -44,13 +47,13 @@ add a tunnel for, and partly because Claude said I'd be able to get a free subdo
 ## Proxmox and Laptop Setup - Restarting Over and Over
 
 From what I understand how, Proxmox is a virtualization platform that allows you to manage an create virtual machines that run on the
-hardware that proxmox is installed on. I had already begun trying to set up Proxmox on a Thinkpad I picked up at [MIT SwapFest](https://w1mx.mit.edu/flea-at-mit/),
+hardware that Proxmox is installed on. I had already begun trying to set up Proxmox on a Thinkpad I picked up at [MIT SwapFest](https://w1mx.mit.edu/flea-at-mit/),
 but upon getting to the networking part of the graphical installation and realizing after a couple google searches that I needed ethernet, I
 put off the installation until I was due to go back home. After getting home and realizing the laptop I got didn't have an ethernet port (a Thinkpad without an ethernet port is ridiculous),
 I started brand new with an even older laptop I had laying around.
 
 Since I was going to use a cloudflare tunnel, I didn't have to do anything like network segmentation before the install and was able to follow the installation like normal.
-Once I logged into root, and verified that I could hit proxmox at the default localhost:8006, I immediately started thinking about how to reduce my electricity bill.
+Once I logged into root, and verified that I could hit Proxmox at the default localhost:8006, I immediately started thinking about how to reduce my electricity bill.
 
 I wanted this laptop to run 24/7, and since setting up WOL would require me to set up port forwarding (a big reason why I chose to use a cloudflare tunnel),
 I really didn't want this home server to become a financial burden. I ended up setting up services and startup scripts to:
@@ -60,14 +63,14 @@ I really didn't want this home server to become a financial burden. I ended up s
 3. Forcing the laptop to stay on while the lid was closed and turning off the backlight of the screen
 4. Disabling the built-in GPU and USB ports
 
-Now that my power consumption was basically negligible, I wanted to make my proxmox available from everywhere so it wouldn't be useless when I was back at school.
+Now that my power consumption was basically negligible, I wanted to make my Proxmox available from everywhere so it wouldn't be useless when I was back at school.
 
 After making the realization that I was going to need a domain, I reluctantly signed up for one using the Github Student Developer Pack. After
 signing up for free Cloudflare account, registering my domain in cloudflare, and adding cloudflare's nameservers to my DNS providers, I was finally able
-to log into cloudflare by running `cloudflared tunnel login` and create a tunnel on my proxmox machine with `cloudflared tunnel create homelab` (`homelab` being the name of my tunnel).
+to log into cloudflare by running `cloudflared tunnel login` and create a tunnel on my Proxmox machine with `cloudflared tunnel create homelab` (`homelab` being the name of my tunnel).
 
 Using the tunnel id that came from running the `cloudflared tunnel create` command, I was able to create a configuration file that pointed the website url I wanted,
-to the proxmox service being run on localhost:8006. One important thing to note is, since cloudflared forces https connections, the configuration file needs to have
+to the Proxmox service being run on localhost:8006. One important thing to note is, since cloudflared forces https connections, the configuration file needs to have
 the following after the service you want you to direct the hostname to:
 
 ```yaml
@@ -78,13 +81,13 @@ originRequest:
 From there, I created the DNS route using `cloudflared tunnel route dns <tunnel name> <subdomain.domain>` and kept it persistent by adding it to the
 cloudflared service (`cloudflared service install`) and enabling the service to start on boot. After typing in my domain on my phone and hitting enter...
 
-I connected right to proxmox! I did pretty much all I wanted with proxmox for now, but spent some time setting up email verification upon hitting the site, restricting it only to my emails,
-and adding an ssh key to the proxmox machine for more security (and to avoid needing to log in with a password every time). Otherwise, it was time to move
-on to actually using proxmox to set up the things I wanted, the first being a **media server**.
+I connected right to Proxmox! I did pretty much all I wanted with Proxmox for now, but spent some time setting up email verification upon hitting the site, restricting it only to my emails,
+and adding an ssh key to the Proxmox machine for more security (and to avoid needing to log in with a password every time). Otherwise, it was time to move
+on to actually using Proxmox to set up the things I wanted, the first being a **media server**.
 
 ## Media Server - PROGRESS!
 
-With proxmox set up and accessible from my domain, the most difficult part was over.
+With Proxmox set up and accessible from my domain, the most difficult part was over.
 
 Now to move on to why I wanted a Proxmox environment in the first place: controlling x amount of space to perform y task all managed in one platform.
 Up first is my media server, as my phone is reaching the end of its storage pool and my family has been asking me to move their phone photos to a usb.
@@ -95,8 +98,8 @@ Nextcloud had a lighter and more file storage approach. Things like face recogni
 Nextcloud because I was hoping this media server to really be a storage server where I can put my documents and upload my photos.
 
 I now wanted to start the process of actually installing Nextcloud, and the first minor difficulty was actually with Proxmox. Having owned and barely used
-a virtualization platform before, I was a little confused on how I was going to get ISOs into proxmox or what I needed to do to create VMs. To that end, I
-spent some time on my proxmox just googling all these questions and learning: how to download at least an Ubuntu server and Windows ISO for VMs, what an
+a virtualization platform before, I was a little confused on how I was going to get ISOs into Proxmox or what I needed to do to create VMs. To that end, I
+spent some time on my Proxmox just googling all these questions and learning: how to download at least an Ubuntu server and Windows ISO for VMs, what an
 LXC container is and its pros/cons compared to traditional VMs, all the settings and optimizations I can work with when creating, managing, and taking down VMs.
 
 Once that was finished, it was time to actually create the machine (for lack of a better word) that my Nextcloud instance was going to live on.
@@ -196,10 +199,10 @@ point the Nextcloud database user to the `nextcloud` user/password we made befor
 
 I now had a decision to make: do I stop here and limit access to Nextcloud to my home internet, making the server act as a backup server that I periodically access, or instead, make the server
 accessible from anywhere using another tunnel, Tailscale, or just port forwarding. While it would have been easier to just leave it, I opted to just use another cloudflare tunnel as
-I had just did that for proxmox and having my files accessible from everywhere just seemed like a no brainer.
+I had just did that for Proxmox and having my files accessible from everywhere just seemed like a no brainer.
 
 With Nextcloud already running and set up, this should be pretty simple right. To start, I needed to change the Apache configuration to change the `ServerName`
-from `localhost` to my desired site (in my case it was just \<subdomain\>.\<domain I used for proxmox\>). Next, add (or replace) the new ServerName to Nextcloud's
+from `localhost` to my desired site (in my case it was just \<subdomain\>.\<domain I used for Proxmox\>). Next, add (or replace) the new ServerName to Nextcloud's
 `trusted_domains` list. Next, we need to go back to Proxmox's terminal and configure a cloudflare tunnel with a new ingress rule
 (basically telling adding the IP of my container to cloudflare's DNS records and properly routing us). This is where the first minor problem arose.
 When I was setting up the container, I had the network set to get a dynamic IP from the router, meaning I wouldn't have one single IP that
@@ -216,7 +219,7 @@ this ip in the homelab tunnel group we made earlier) and `systemctl restart clou
 
 I was met with an error 404. Well that's not good.
 
-To start, I went to the Nextcloud container's static IP and was able to hit the Nextcloud login page just fine. Even using `curl -L` from both the container and proxmox terminal
+To start, I went to the Nextcloud container's static IP and was able to hit the Nextcloud login page just fine. Even using `curl -L` from both the container and Proxmox terminal
 returned roughly the right html. After a couple minutes of confusion and trying to understand what I did different from the first tunnel I installed, I eventually learned that
 edits to `~/.cloudflared/config.yml` don't get copied over to `/etc/cloudflared/config.yml` if the cloudflared service was running (which makes sense but c'mon really). I opened the
 config in `/etc` and sure enough, there wasn't my Nextcloud entry, so I added it. Then I saved the file and ran `systemctl restart cloudflared` and...
@@ -235,3 +238,27 @@ Success! Besides from doing some more configuring to turn off skeleton directori
 ## The End - Well Sort of
 
 In the end I'm pretty happy with the environment I was able to make.
+
+The project served its purpose great, as I not only learned a lot of about working with DNS and setting up infrastructure, but
+the media server I set up is a lot more versatile than I thought and I have a good number of ideas on what I want to use it for.
+
+There were some mishaps though. Since getting back to my university dorm and trying to access Proxmox, I was met with a 502 error with my host.
+I was confused by this at first since I could get to my Nextcloud just fine over the web. Only when I started to try to ssh into my Proxmox machine
+using my ssh key did I realize my ssh key only connects to the Proxmox's local IP back home... Since I was unable to fix the issue without
+physically typing on the laptop running Proxmox, I needed to walk my brother through which config to change so that I'd be able to hit the
+Proxmox web interface and interact with the console through that GUI. While it was a simple issue with missing a configuration to tell Cloudflare to
+ignore the fact that I don't have a TLS signature, it still fully prevented me from accessing Proxmox at all.
+
+Setting this up, I am learning that I need to be even more rigorous with testing my environment and backup procedures. Had the misconfiguration been much worse
+or if a crash had happened for a reason I wasn't able to identify, I wouldn't have been able to debug while my brother is the one navigating through
+files in my stead.
+
+Regardless of the difficulties I had, I am genuinely so excited and hyped to have a home server, albeit a small one, of my own. It feels so
+rewarding to be able to say I have this environment of my own and being able to tinker with different VMs or set up different servers
+without having to think about if my primary laptop will become bloated or how much it will cost to host it on the cloud.
+
+Thank you for reading my first blog post about my mini journey. Seeing as you read this far, you either are pretty interested in the beginnings of
+someone trying to break their way into the self-hosting world as cheaply as possible, or you're someone who I already know or probably want to know.
+Either way, please reach out to me if you have any questions that came up. I may not know the answer, but I'd love to find it with you.
+
+Once again, thank you for reading and I hope to keep making these.
