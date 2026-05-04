@@ -1,35 +1,69 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useScrollSpy } from '@/hooks/useScrollSpy';
 
-const navLinks = [
-	{ label: 'Home', href: '/' },
-	{ label: 'Projects', href: '/projects' }
+interface NavbarProps {
+	onContact: () => void;
+}
+
+const links = [
+	{ key: '1', label: 'about', target: 'about', kind: 'section' as const },
+	{ key: '2', label: 'work', target: 'work', kind: 'section' as const },
+	{ key: '3', label: 'contact', target: 'contact', kind: 'modal' as const }
 ];
 
-export default function Navbar() {
-	const pathname = usePathname();
-	const normalized = pathname.replace(/\/$/, '') || '/';
+export default function Navbar({ onContact }: NavbarProps) {
+	const activeId = useScrollSpy(['about', 'work'], 'about');
+
+	function handleSectionClick(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
+		event.preventDefault();
+		const el = document.getElementById(id);
+		if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	}
+
 	return (
-		<div className="flex w-full h-16 items-center justify-center border-b border-border">
-			<nav className="flex flex-row px-6">
-				<div className="flex gap-6">
-					{navLinks.map((link) => (
-						<Link
-							key={link.href}
-							href={link.href}
-							className={`transition-colors ${
-								normalized === link.href
-									? 'text-primary underline underline-offset-8! decoration-accent decoration-2'
-									: 'text-secondary no-underline'
-							}`}
-						>
-							{link.label}
-						</Link>
-					))}
-				</div>
-			</nav>
-		</div>
+		<nav className="sticky top-0 z-30 flex items-center justify-between border-b border-border-soft bg-surface px-7 py-5 text-[16px]">
+			<a
+				href="#about"
+				onClick={(e) => handleSectionClick(e, 'about')}
+				className="font-medium text-text"
+			>
+				wesley tran<span className="text-accent">.</span>
+			</a>
+			<ul className="m-0 flex list-none gap-7 p-0">
+				{links.map((link) => {
+					const isActive = link.kind === 'section' && activeId === link.target;
+					const labelClass = isActive
+						? 'text-text'
+						: 'text-muted hover:text-text transition-colors';
+					if (link.kind === 'modal') {
+						return (
+							<li key={link.key}>
+								<button
+									onClick={onContact}
+									className="flex items-center gap-2"
+									aria-label={`open ${link.label}`}
+								>
+									<span className="font-medium text-accent">[{link.key}]</span>
+									<span className={labelClass}>{link.label}</span>
+								</button>
+							</li>
+						);
+					}
+					return (
+						<li key={link.key}>
+							<a
+								href={`#${link.target}`}
+								onClick={(e) => handleSectionClick(e, link.target)}
+								className="flex items-center gap-2"
+							>
+								<span className="font-medium text-accent">[{link.key}]</span>
+								<span className={labelClass}>{link.label}</span>
+							</a>
+						</li>
+					);
+				})}
+			</ul>
+		</nav>
 	);
 }
