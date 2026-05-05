@@ -1,16 +1,22 @@
-import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
-import './globals.css';
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-export const metadata: Metadata = {
-	title: 'wesley tran',
-	description: 'cs + cybersecurity student in boston'
-};
-
-export default function RootLayout({ children }: { children: ReactNode }) {
-	return (
-		<html lang="en">
-			<body>{children}</body>
-		</html>
-	);
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`h-full antialiased`}
+    >
+      <body className="text-text min-h-full flex flex-col">
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
+    </html>
+  );
 }

@@ -1,13 +1,7 @@
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-	output: 'export',
-	distDir: 'build',
-	images: {
-		unoptimized: true
-	},
-	trailingSlash: true,
-	devIndicators: false
+  /* config options here */
 };
 
 export default nextConfig;
