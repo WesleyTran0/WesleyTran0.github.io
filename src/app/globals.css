@@ -17,6 +17,11 @@
 	/* text */
 	--color-text: #adb0bb;
 	--color-text-soft: #9b9fa9;
+	/* proposed brighter palette — apply by uncommenting and swapping headings to text-heading
+	--color-text: #d3d6df;
+	--color-text-soft: #a8acb6;
+	--color-heading: #ecedf2;
+	*/
 	--color-muted: #696c76;
 	--color-muted-dim: #595c66;
 	--color-inactive: #494d56;
@@ -62,9 +67,32 @@
 		box-sizing: border-box;
 	}
 
-	a {
+	a:not(p a) {
 		color: inherit;
 		text-decoration: none;
+	}
+
+	p a {
+		color: var(--color-accent);
+		text-decoration: underline;
+		text-decoration-color: var(--color-accent);
+		text-underline-offset: 7px;
+		text-decoration-thickness: 1px;
+		transition:
+			color 0.15s ease,
+			text-decoration-color 0.15s ease,
+			transform 0.1s ease;
+	}
+
+	p a:hover {
+		color: var(--color-accent-light);
+		text-decoration-color: var(--color-accent-light);
+	}
+
+	p a:active {
+		color: var(--color-accent-dark);
+		text-decoration-color: var(--color-accent-dark);
+		transform: translateY(1px);
 	}
 
 	button {

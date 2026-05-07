@@ -28,7 +28,7 @@ export default function Home() {
 	return (
 		<>
 			<Navbar onContact={() => setContactOpen(true)} />
-			<main className="mx-auto max-w-[675px] px-7">
+			<main className="mx-auto max-w-3xl px-7">
 				<Hero />
 				<SelectedWork />
 			</main>
