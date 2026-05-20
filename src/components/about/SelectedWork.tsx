@@ -1,9 +1,9 @@
-import ProjectCard from './ProjectCard';
-import type { Project } from '@/lib/projects';
+import ProjectCard from "./ProjectCard";
+import type { Project } from "@/lib/projects";
 
 export default function SelectedWork({ projects }: { projects: Project[] }) {
 	return (
-		<section id="work" className="scroll-mt-28 pt-15 pb-10">
+		<section id="work" className="scroll-mt-28 pb-10">
 			<div className="mb-7 flex items-baseline justify-between">
 				<div className="flex items-baseline gap-3">
 					<span className="block h-px w-5.75 -translate-y-1.25 bg-accent" aria-hidden="true" />

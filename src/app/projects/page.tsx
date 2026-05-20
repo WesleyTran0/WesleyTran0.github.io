@@ -11,7 +11,7 @@ export default function ProjectsPage() {
 	const projects = getAllProjects();
 	return (
 		<ProjectPage>
-			<main className="mx-auto max-w-3xl px-7 pt-10 pb-16">
+			<main className="mx-auto max-w-4xl px-7 pt-10 pb-16">
 				<div className="mb-8 flex items-baseline justify-between">
 					<div className="flex items-baseline gap-3">
 						<span className="block h-px w-5.75 -translate-y-1.25 bg-accent" aria-hidden="true" />
@@ -21,7 +21,7 @@ export default function ProjectsPage() {
 						{projects.length} {projects.length === 1 ? "entry" : "entries"}
 					</span>
 				</div>
-				<div className="grid grid-cols-2 gap-px border border-border-soft bg-border-soft max-sm:grid-cols-1">
+				<div className="flex flex-col border-t border-border-soft">
 					{projects.map((project) => (
 						<ProjectListCard key={project.slug} project={project} />
 					))}

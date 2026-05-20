@@ -14,9 +14,9 @@ export default function ProjectListCard({ project }: { project: Project }) {
 	return (
 		<Link
 			href={`/projects/${project.slug}`}
-			className="group flex flex-col bg-background hover:bg-surface-alt transition-colors duration-200"
+			className="group flex gap-6 border-b border-border-soft py-7 transition-colors duration-200 max-sm:flex-col max-sm:gap-4"
 		>
-			<div className="relative aspect-[16/9] w-full overflow-hidden bg-surface-raised border-b border-border-soft">
+			<div className="relative w-56 shrink-0 aspect-[4/3] overflow-hidden bg-surface-raised max-sm:w-full max-sm:aspect-[16/9]">
 				{project.thumbnail ? (
 					<Image
 						src={project.thumbnail}
@@ -30,18 +30,18 @@ export default function ProjectListCard({ project }: { project: Project }) {
 					</div>
 				)}
 			</div>
-			<div className="flex flex-col px-6 pt-5 pb-5 flex-1">
-				<div className="flex items-baseline justify-between mb-2">
+			<div className="flex flex-1 flex-col">
+				<div className="mb-2 flex items-baseline justify-between gap-4">
 					<h3 className="m-0 text-[21px] font-medium tracking-[-0.01em] text-text group-hover:text-accent transition-colors">
 						{project.title}
 					</h3>
-					<span className="font-mono text-sm text-muted-dim">{project.date}</span>
+					<span className="font-mono text-sm text-muted-dim shrink-0">{project.date}</span>
 				</div>
 				<p className="text-base leading-[1.55] text-text-soft mb-auto">
 					{project.shortDescription}
 				</p>
-				<div className="flex justify-between items-center mt-4">
-					<div className="flex gap-3 font-mono text-[13px] tracking-[0.04em] flex-wrap">
+				<div className="mt-4 flex items-center justify-between">
+					<div className="flex flex-wrap gap-3 font-mono text-[13px] tracking-[0.04em]">
 						{project.tags.map((tag) => (
 							<span key={tag} className={tagColor[tag] ?? 'text-muted'}>
 								{tag}
