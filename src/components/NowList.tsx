@@ -1,4 +1,4 @@
-type NowLabel = 'BUILDING' | 'STUDYING' | 'READING' | 'LIFE' | 'WORKING';
+type NowLabel = 'BUILDING' | 'STUDYING' | 'READING' | 'LIFE' | 'CURRENTLY';
 
 interface NowRow {
 	label: NowLabel;
@@ -15,7 +15,7 @@ const nowRows: NowRow[] = [
 		html: 'Application security fundamentals through PortSwigger and EC-Council certifications'
 	},
 	{
-		label: 'WORKING',
+		label: 'CURRENTLY',
 		html: 'Tinkering with new tools and technologies, finding new ways to enjoy the work I do'
 	},
 	{
@@ -29,7 +29,7 @@ const labelColor: Record<NowLabel, string> = {
 	STUDYING: 'text-green',
 	READING: 'text-purple',
 	LIFE: 'text-cyan',
-	WORKING: 'text-accent'
+	CURRENTLY: 'text-accent'
 };
 
 export default function NowList() {

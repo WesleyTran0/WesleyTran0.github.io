@@ -28,7 +28,7 @@ export default function Navbar({ onContact }: NavbarProps) {
 				onClick={(e) => handleSectionClick(e, 'about')}
 				className="font-medium text-text"
 			>
-				wesley tran<span className="text-accent">.</span>
+				wesleytran<span className="text-accent">.me</span>
 			</a>
 			<ul className="m-0 flex list-none gap-7 p-0">
 				{links.map((link) => {
