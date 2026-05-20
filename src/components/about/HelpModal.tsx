@@ -8,8 +8,8 @@ interface HelpModalProps {
 }
 
 const shortcuts = [
-	{ key: '1', desc: 'jump to about' },
-	{ key: '2', desc: 'jump to selected work' },
+	{ key: '1', desc: 'go to home' },
+	{ key: '2', desc: 'go to projects' },
 	{ key: '3', desc: 'open contact' },
 	{ key: '?', desc: 'open this help' },
 	{ key: 'esc', desc: 'close modal' }

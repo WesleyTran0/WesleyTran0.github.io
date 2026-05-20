@@ -1,6 +1,11 @@
-import type { Project, ProjectTag } from '@/data/projects';
+interface ProjectCardProps {
+	title: string;
+	description: string;
+	tags: string[];
+	href?: string;
+}
 
-const tagColor: Partial<Record<ProjectTag, string>> = {
+const tagColor: Record<string, string> = {
 	rust: 'text-tag-rust',
 	typescript: 'text-tag-ts',
 	infra: 'text-cyan',
@@ -8,19 +13,19 @@ const tagColor: Partial<Record<ProjectTag, string>> = {
 	Go: 'text-[#00ADD8]'
 };
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({ title, description, tags, href }: ProjectCardProps) {
 	return (
 		<a
-			href={project.href ?? '#'}
+			href={href ?? '#'}
 			className="group flex flex-col px-6 pt-6 pb-5 min-h-47.5 bg-background hover:bg-surface-alt transition-colors duration-200 cursor-pointer"
 		>
 			<h3 className="text-[21px] font-medium tracking-[-0.01em] text-text group-hover:text-accent transition-colors mb-2 m-0">
-				{project.title}
+				{title}
 			</h3>
-			<p className="text-base leading-[1.55] text-text-soft mb-auto">{project.description}</p>
+			<p className="text-base leading-[1.55] text-text-soft mb-auto">{description}</p>
 			<div className="flex justify-between items-center mt-1 mb-3">
 				<div className="flex gap-3 font-mono text-[13px] tracking-[0.04em]">
-					{project.tags.map((tag) => (
+					{tags.map((tag) => (
 						<span key={tag} className={tagColor[tag] ?? 'text-muted'}>
 							{tag}
 						</span>
@@ -30,7 +35,6 @@ export default function ProjectCard({ project }: { project: Project }) {
 					↗
 				</span>
 			</div>
-
 		</a>
 	);
 }

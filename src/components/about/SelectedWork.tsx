@@ -1,49 +1,7 @@
 import ProjectCard from './ProjectCard';
+import type { Project } from '@/lib/projects';
 
-type ProjectTag =
-	| string
-	| "typescript"
-	| "rust"
-	| "Go"
-	| "react"
-	| "infra"
-	| "networks"
-	| "protocols"
-	| "proxmox"
-	| "next.js"
-	| "ongoing";
-
-interface Project {
-	title: string;
-	description: string;
-	tags: ProjectTag[];
-	href?: string;
-}
-
-const projects: Project[] = [
-	{
-		title: 'Good Dog Licensing',
-		description: 'Northeastern\'s free music synchronization platform, connecting musicians and media makers together',
-		tags: ['typescript', 'react', 'next.js']
-	},
-	{
-		title: 'Cyber News Web Scraper',
-		description: 'Designed and developed a web scraper to learn Go and automate article aggregation',
-		tags: ['Go', 'goquery', 'json']
-	},
-	{
-		title: 'homelab',
-		description: "Self-hosted infrastructure designed to provide efficient and budget-friendly utility and space for systems tinkering",
-		tags: ['infra', 'proxmox', 'ongoing']
-	},
-	{
-		title: 'Falling Sand',
-		description: 'A falling sand physics engine built to model how elements interact each other',
-		tags: ['rust', 'ongoing']
-	},
-];
-
-export default function SelectedWork() {
+export default function SelectedWork({ projects }: { projects: Project[] }) {
 	return (
 		<section id="work" className="scroll-mt-28 pt-15 pb-10">
 			<div className="mb-7 flex items-baseline justify-between">
@@ -57,12 +15,21 @@ export default function SelectedWork() {
 			</div>
 
 			<div className="grid grid-cols-2 gap-px border border-border-soft bg-border-soft max-sm:grid-cols-1">
-				{projects.map((project, index) => (
-					<ProjectCard key={index} project={project} />
+				{projects.map((project) => (
+					<ProjectCard
+						key={project.slug}
+						title={project.title}
+						description={project.frontPageDescription ?? project.shortDescription}
+						tags={project.tags.slice(0, 3)}
+						href={`/projects/${project.slug}`}
+					/>
 				))}
 			</div>
 			<div className="flex justify-end pt-5">
-				<a href="#" className="group text-base text-muted transition-colors hover:text-accent">
+				<a
+					href="/projects"
+					className="group text-base text-muted transition-colors hover:text-accent"
+				>
 					view archive <span className="text-accent group-hover:text-accent">↗</span>
 				</a>
 			</div>

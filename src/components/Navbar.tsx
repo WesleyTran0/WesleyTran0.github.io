@@ -16,15 +16,17 @@ export default function Navbar({ onContact }: NavbarProps) {
 	const activeId = useScrollSpy(['about', 'work'], 'about');
 
 	function handleSectionClick(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
-		event.preventDefault();
 		const el = document.getElementById(id);
-		if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		if (el) {
+			event.preventDefault();
+			el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
 	}
 
 	return (
 		<nav className="sticky top-0 z-30 flex items-center justify-between border-b border-border-soft bg-surface px-7 py-5 text-[16px]">
 			<a
-				href="#about"
+				href="/#about"
 				onClick={(e) => handleSectionClick(e, 'about')}
 				className="font-medium text-text"
 			>
@@ -53,7 +55,7 @@ export default function Navbar({ onContact }: NavbarProps) {
 					return (
 						<li key={link.key}>
 							<a
-								href={`#${link.target}`}
+								href={`/#${link.target}`}
 								onClick={(e) => handleSectionClick(e, link.target)}
 								className="flex items-center gap-2"
 							>
