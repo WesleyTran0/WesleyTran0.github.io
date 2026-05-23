@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ProjectPage from "@/components/ProjectPage";
+import PageShell from "@/components/PageShell";
 import { getAllProjectSlugs, getProjectBySlug } from "@/lib/projects";
 
 const tagColor: Record<string, string> = {
@@ -38,7 +38,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 	const { project, html } = result;
 
 	return (
-		<ProjectPage>
+		<PageShell>
 			<main className="mx-auto max-w-3xl px-7 pt-10 pb-16">
 				<div className="mb-6">
 					<Link
@@ -79,8 +79,8 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 				</header>
 
 				{project.thumbnail && (
-					<div className="relative mb-10 aspect-[16/9] w-full overflow-hidden border border-border-soft">
-						<Image src={project.thumbnail} alt={project.title} fill className="object-cover" />
+					<div className="relative mb-10 aspect-video w-full overflow-hidden border border-border-soft bg-surface-raised">
+						<Image src={project.thumbnail} alt={project.title} fill className="object-contain p-4" />
 					</div>
 				)}
 
@@ -89,6 +89,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 					dangerouslySetInnerHTML={{ __html: html }}
 				/>
 			</main>
-		</ProjectPage>
+		</PageShell>
 	);
 }

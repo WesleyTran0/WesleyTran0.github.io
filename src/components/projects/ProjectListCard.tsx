@@ -22,7 +22,7 @@ export default function ProjectListCard({ project }: { project: Project }) {
 						src={project.thumbnail}
 						alt={project.title}
 						fill
-						className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+						className="object-contain p-2 transition-transform duration-300 group-hover:scale-[1.02]"
 					/>
 				) : (
 					<div className="flex h-full w-full items-center justify-center font-mono text-sm text-muted-dim">

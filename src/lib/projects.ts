@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import type { StaticImageData } from "next/image";
 
 export interface Project {
 	slug: string;
@@ -9,7 +10,7 @@ export interface Project {
 	shortDescription: string;
 	frontPageDescription?: string;
 	tags: string[];
-	thumbnail?: string;
+	thumbnail?: StaticImageData;
 	href?: string;
 	date: string;
 	order?: number;
@@ -17,9 +18,16 @@ export interface Project {
 
 const PROJECTS_DIR = path.join(process.cwd(), "src", "content", "projects");
 
-function readProject(filename: string): { project: Project; body: string } {
-	const slug = filename.replace(/\.md$/, "");
-	const raw = fs.readFileSync(path.join(PROJECTS_DIR, filename), "utf8");
+function loadThumbnail(slug: string): StaticImageData | undefined {
+	if (!fs.existsSync(path.join(PROJECTS_DIR, slug, `${slug}.png`))) {
+		return undefined;
+	}
+	const mod = require(`@/content/projects/${slug}/${slug}.png`);
+	return (mod.default ?? mod) as StaticImageData;
+}
+
+function readProject(slug: string): { project: Project; body: string } {
+	const raw = fs.readFileSync(path.join(PROJECTS_DIR, slug, `${slug}.md`), "utf8");
 	const { data, content } = matter(raw);
 	const project: Project = {
 		slug,
@@ -27,7 +35,7 @@ function readProject(filename: string): { project: Project; body: string } {
 		shortDescription: String(data.shortDescription ?? ""),
 		frontPageDescription: data.frontPageDescription ? String(data.frontPageDescription) : undefined,
 		tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
-		thumbnail: data.thumbnail ? String(data.thumbnail) : undefined,
+		thumbnail: loadThumbnail(slug),
 		href: data.href ? String(data.href) : undefined,
 		date: String(data.date ?? ""),
 		order: typeof data.order === "number" ? data.order : undefined
@@ -35,20 +43,25 @@ function readProject(filename: string): { project: Project; body: string } {
 	return { project, body: content };
 }
 
-function listFiles(): string[] {
+function listSlugs(): string[] {
 	if (!fs.existsSync(PROJECTS_DIR)) return [];
-	return fs.readdirSync(PROJECTS_DIR).filter((f) => f.endsWith(".md"));
+	return fs
+		.readdirSync(PROJECTS_DIR, { withFileTypes: true })
+		.filter(
+			(d) => d.isDirectory() && fs.existsSync(path.join(PROJECTS_DIR, d.name, `${d.name}.md`))
+		)
+		.map((d) => d.name);
 }
 
 export function getAllProjects(): Project[] {
-	return listFiles()
-		.map((f) => readProject(f).project)
+	return listSlugs()
+		.map((s) => readProject(s).project)
 		.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 }
 
 export function getFeaturedProjects(): Project[] {
-	return listFiles()
-		.map((f) => readProject(f).project)
+	return listSlugs()
+		.map((s) => readProject(s).project)
 		.filter((p) => p.frontPageDescription && p.frontPageDescription.length > 0)
 		.sort((a, b) => {
 			const ao = a.order ?? Number.MAX_SAFE_INTEGER;
@@ -60,13 +73,12 @@ export function getFeaturedProjects(): Project[] {
 }
 
 export function getProjectBySlug(slug: string): { project: Project; html: string } | null {
-	const filename = `${slug}.md`;
-	if (!fs.existsSync(path.join(PROJECTS_DIR, filename))) return null;
-	const { project, body } = readProject(filename);
+	if (!fs.existsSync(path.join(PROJECTS_DIR, slug, `${slug}.md`))) return null;
+	const { project, body } = readProject(slug);
 	const html = marked.parse(body, { async: false }) as string;
 	return { project, html };
 }
 
 export function getAllProjectSlugs(): string[] {
-	return listFiles().map((f) => f.replace(/\.md$/, ""));
+	return listSlugs();
 }
