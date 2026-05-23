@@ -6,32 +6,32 @@ interface ProjectCardProps {
 }
 
 const tagColor: Record<string, string> = {
-	rust: 'text-tag-rust',
-	typescript: 'text-tag-ts',
-	infra: 'text-cyan',
-	proxmox: 'text-orange-400',
-	Go: 'text-[#00ADD8]'
+	rust: "text-tag-rust",
+	typescript: "text-tag-ts",
+	infra: "text-cyan",
+	proxmox: "text-orange-400",
+	Go: "text-[#00ADD8]"
 };
 
 export default function ProjectCard({ title, description, tags, href }: ProjectCardProps) {
 	return (
 		<a
-			href={href ?? '#'}
-			className="group flex flex-col px-6 pt-6 pb-5 min-h-47.5 bg-background hover:bg-surface-alt transition-colors duration-200 cursor-pointer"
+			href={href ?? "#"}
+			className="group flex min-h-47.5 cursor-pointer flex-col bg-background px-6 pt-6 pb-5 transition-colors duration-200 hover:bg-surface-alt"
 		>
-			<h3 className="text-[21px] font-medium tracking-[-0.01em] text-text group-hover:text-accent transition-colors mb-2 m-0">
+			<h3 className="m-0 mb-2 text-[21px] font-medium tracking-[-0.01em] text-text transition-colors group-hover:text-accent">
 				{title}
 			</h3>
-			<p className="text-base leading-[1.55] text-text-soft mb-auto">{description}</p>
-			<div className="flex justify-between items-center mt-1 mb-3">
+			<p className="mb-auto text-base leading-[1.55] text-text-soft">{description}</p>
+			<div className="mt-1 mb-3 flex items-center justify-between">
 				<div className="flex gap-3 font-mono text-[13px] tracking-[0.04em]">
 					{tags.map((tag) => (
-						<span key={tag} className={tagColor[tag] ?? 'text-muted'}>
+						<span key={tag} className={tagColor[tag] ?? "text-muted"}>
 							{tag}
 						</span>
 					))}
 				</div>
-				<span className="font-mono text-lg items-center text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200">
+				<span className="items-center font-mono text-lg text-muted transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent">
 					↗
 				</span>
 			</div>

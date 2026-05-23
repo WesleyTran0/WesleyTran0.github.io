@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export function useScrollSpy(sectionIds: string[], defaultId: string): string {
 	const [activeId, setActiveId] = useState(defaultId);
@@ -23,7 +23,7 @@ export function useScrollSpy(sectionIds: string[], defaultId: string): string {
 				}
 			},
 			{
-				rootMargin: '-80px 0px -50% 0px',
+				rootMargin: "-80px 0px -50% 0px",
 				threshold: 0
 			}
 		);

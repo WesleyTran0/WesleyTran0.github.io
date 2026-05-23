@@ -1,8 +1,8 @@
 const info = [
-	{ key: 'location', html: 'boston, ma' },
-	{ key: 'studying', html: 'cybersecurity @ northeastern' },
-	{ key: 'working', html: 'Security Research Intern @ Griffiss Institute' },
-	{ key: 'tools', html: 'arch · astronvim · rust' }
+	{ key: "location", html: "boston, ma" },
+	{ key: "studying", html: "cybersecurity @ northeastern" },
+	{ key: "working", html: "Security Research Intern @ Griffiss Institute" },
+	{ key: "tools", html: "arch · astronvim · rust" }
 ];
 
 export default function InfoStrip() {

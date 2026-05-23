@@ -65,8 +65,8 @@ These map onto Tailwind theme tokens. Use them via `var(--color-*)` or Tailwind 
 
 ```css
 @theme {
-	--font-sans: 'Figtree', system-ui, sans-serif;
-	--font-mono: 'JetBrains Mono', ui-monospace, monospace;
+	--font-sans: "Figtree", system-ui, sans-serif;
+	--font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 ```
 

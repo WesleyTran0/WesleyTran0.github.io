@@ -1,7 +1,7 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import matter from 'gray-matter';
-import { marked } from 'marked';
+import fs from "node:fs";
+import path from "node:path";
+import matter from "gray-matter";
+import { marked } from "marked";
 
 export interface Project {
 	slug: string;
@@ -15,29 +15,29 @@ export interface Project {
 	order?: number;
 }
 
-const PROJECTS_DIR = path.join(process.cwd(), 'src', 'content', 'projects');
+const PROJECTS_DIR = path.join(process.cwd(), "src", "content", "projects");
 
 function readProject(filename: string): { project: Project; body: string } {
-	const slug = filename.replace(/\.md$/, '');
-	const raw = fs.readFileSync(path.join(PROJECTS_DIR, filename), 'utf8');
+	const slug = filename.replace(/\.md$/, "");
+	const raw = fs.readFileSync(path.join(PROJECTS_DIR, filename), "utf8");
 	const { data, content } = matter(raw);
 	const project: Project = {
 		slug,
 		title: String(data.title ?? slug),
-		shortDescription: String(data.shortDescription ?? ''),
+		shortDescription: String(data.shortDescription ?? ""),
 		frontPageDescription: data.frontPageDescription ? String(data.frontPageDescription) : undefined,
 		tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
 		thumbnail: data.thumbnail ? String(data.thumbnail) : undefined,
 		href: data.href ? String(data.href) : undefined,
-		date: String(data.date ?? ''),
-		order: typeof data.order === 'number' ? data.order : undefined
+		date: String(data.date ?? ""),
+		order: typeof data.order === "number" ? data.order : undefined
 	};
 	return { project, body: content };
 }
 
 function listFiles(): string[] {
 	if (!fs.existsSync(PROJECTS_DIR)) return [];
-	return fs.readdirSync(PROJECTS_DIR).filter((f) => f.endsWith('.md'));
+	return fs.readdirSync(PROJECTS_DIR).filter((f) => f.endsWith(".md"));
 }
 
 export function getAllProjects(): Project[] {
@@ -68,5 +68,5 @@ export function getProjectBySlug(slug: string): { project: Project; html: string
 }
 
 export function getAllProjectSlugs(): string[] {
-	return listFiles().map((f) => f.replace(/\.md$/, ''));
+	return listFiles().map((f) => f.replace(/\.md$/, ""));
 }

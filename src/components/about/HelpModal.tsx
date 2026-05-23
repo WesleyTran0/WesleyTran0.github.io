@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import Modal from '../Modal';
+import Modal from "../Modal";
 
 interface HelpModalProps {
 	open: boolean;
@@ -8,11 +8,11 @@ interface HelpModalProps {
 }
 
 const shortcuts = [
-	{ key: '1', desc: 'go to home' },
-	{ key: '2', desc: 'go to projects' },
-	{ key: '3', desc: 'open contact' },
-	{ key: '?', desc: 'open this help' },
-	{ key: 'esc', desc: 'close modal' }
+	{ key: "1", desc: "go to home" },
+	{ key: "2", desc: "go to projects" },
+	{ key: "3", desc: "open contact" },
+	{ key: "?", desc: "open this help" },
+	{ key: "esc", desc: "close modal" }
 ];
 
 export default function HelpModal({ open, onClose }: HelpModalProps) {
@@ -26,7 +26,7 @@ export default function HelpModal({ open, onClose }: HelpModalProps) {
 					<li key={s.key} className="flex justify-between text-muted">
 						<span>{s.desc}</span>
 						<kbd
-							style={{ fontFamily: 'inherit' }}
+							style={{ fontFamily: "inherit" }}
 							className="inline-block rounded-[3px] border border-border bg-surface-raised px-2 py-px text-sm font-medium text-accent"
 						>
 							{s.key}

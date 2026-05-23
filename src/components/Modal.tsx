@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, type ReactNode } from "react";
 
 interface ModalProps {
 	open: boolean;
@@ -13,10 +13,10 @@ export default function Modal({ open, onClose, children, labelledBy }: ModalProp
 	useEffect(() => {
 		if (!open) return;
 		function handleEsc(event: KeyboardEvent) {
-			if (event.key === 'Escape') onClose();
+			if (event.key === "Escape") onClose();
 		}
-		window.addEventListener('keydown', handleEsc);
-		return () => window.removeEventListener('keydown', handleEsc);
+		window.addEventListener("keydown", handleEsc);
+		return () => window.removeEventListener("keydown", handleEsc);
 	}, [open, onClose]);
 
 	if (!open) return null;
@@ -31,9 +31,9 @@ export default function Modal({ open, onClose, children, labelledBy }: ModalProp
 			<button
 				aria-label="close"
 				onClick={onClose}
-				className="absolute inset-0 bg-[rgba(17,19,23,0.85)] backdrop-blur-sm cursor-default"
+				className="absolute inset-0 cursor-default bg-[rgba(17,19,23,0.85)] backdrop-blur-sm"
 			/>
-			<div className="relative w-full max-w-[500px] bg-surface border border-border rounded-lg p-7">
+			<div className="relative w-full max-w-[500px] rounded-lg border border-border bg-surface p-7">
 				{children}
 			</div>
 		</div>

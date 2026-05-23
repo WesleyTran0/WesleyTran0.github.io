@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { useScrollSpy } from '@/hooks/useScrollSpy';
+import { useScrollSpy } from "@/hooks/useScrollSpy";
 
 interface NavbarProps {
 	onContact: () => void;
 }
 
 const links = [
-	{ key: '1', label: 'about', target: 'about', kind: 'section' as const },
-	{ key: '2', label: 'work', target: 'work', kind: 'section' as const },
-	{ key: '3', label: 'contact', target: 'contact', kind: 'modal' as const }
+	{ key: "1", label: "about", target: "about", kind: "section" as const },
+	{ key: "2", label: "work", target: "work", kind: "section" as const },
+	{ key: "3", label: "contact", target: "contact", kind: "modal" as const }
 ];
 
 export default function Navbar({ onContact }: NavbarProps) {
-	const activeId = useScrollSpy(['about', 'work'], 'about');
+	const activeId = useScrollSpy(["about", "work"], "about");
 
 	function handleSectionClick(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
 		const el = document.getElementById(id);
 		if (el) {
 			event.preventDefault();
-			el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			el.scrollIntoView({ behavior: "smooth", block: "start" });
 		}
 	}
 
@@ -27,18 +27,18 @@ export default function Navbar({ onContact }: NavbarProps) {
 		<nav className="sticky top-0 z-30 flex items-center justify-between border-b border-border-soft bg-surface px-7 py-5 text-[16px]">
 			<a
 				href="/#about"
-				onClick={(e) => handleSectionClick(e, 'about')}
+				onClick={(e) => handleSectionClick(e, "about")}
 				className="font-medium text-text"
 			>
 				wesleytran<span className="text-accent">.me</span>
 			</a>
 			<ul className="m-0 flex list-none gap-7 p-0">
 				{links.map((link) => {
-					const isActive = link.kind === 'section' && activeId === link.target;
+					const isActive = link.kind === "section" && activeId === link.target;
 					const labelClass = isActive
-						? 'text-text'
-						: 'text-muted hover:text-text transition-colors';
-					if (link.kind === 'modal') {
+						? "text-text"
+						: "text-muted hover:text-text transition-colors";
+					if (link.kind === "modal") {
 						return (
 							<li key={link.key}>
 								<button

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 interface KeyboardNavHandlers {
 	onAbout?: () => void;
@@ -12,7 +12,7 @@ interface KeyboardNavHandlers {
 function isTypingTarget(target: EventTarget | null): boolean {
 	if (!(target instanceof HTMLElement)) return false;
 	const tag = target.tagName;
-	return tag === 'INPUT' || tag === 'TEXTAREA' || target.isContentEditable;
+	return tag === "INPUT" || tag === "TEXTAREA" || target.isContentEditable;
 }
 
 export function useKeyboardNav({ onAbout, onWork, onContact, onHelp }: KeyboardNavHandlers) {
@@ -22,26 +22,26 @@ export function useKeyboardNav({ onAbout, onWork, onContact, onHelp }: KeyboardN
 			if (isTypingTarget(event.target)) return;
 
 			switch (event.key) {
-				case '1':
+				case "1":
 					event.preventDefault();
 					onAbout?.();
 					break;
-				case '2':
+				case "2":
 					event.preventDefault();
 					onWork?.();
 					break;
-				case '3':
+				case "3":
 					event.preventDefault();
 					onContact?.();
 					break;
-				case '?':
+				case "?":
 					event.preventDefault();
 					onHelp?.();
 					break;
 			}
 		}
 
-		window.addEventListener('keydown', handle);
-		return () => window.removeEventListener('keydown', handle);
+		window.addEventListener("keydown", handle);
+		return () => window.removeEventListener("keydown", handle);
 	}, [onAbout, onWork, onContact, onHelp]);
 }
