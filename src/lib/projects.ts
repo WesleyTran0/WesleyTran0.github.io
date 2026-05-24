@@ -19,11 +19,22 @@ export interface Project {
 const PROJECTS_DIR = path.join(process.cwd(), "src", "content", "projects");
 
 function loadThumbnail(slug: string): StaticImageData | undefined {
-	if (!fs.existsSync(path.join(PROJECTS_DIR, slug, `${slug}.png`))) {
+	const dir = path.join(PROJECTS_DIR, slug);
+	let mod: { default?: StaticImageData } | StaticImageData | undefined;
+	if (fs.existsSync(path.join(dir, `${slug}.png`))) {
+		mod = require(`@/content/projects/${slug}/${slug}.png`);
+	} else if (fs.existsSync(path.join(dir, `${slug}.gif`))) {
+		mod = require(`@/content/projects/${slug}/${slug}.gif`);
+	} else if (fs.existsSync(path.join(dir, `${slug}.jpg`))) {
+		mod = require(`@/content/projects/${slug}/${slug}.jpg`);
+	} else if (fs.existsSync(path.join(dir, `${slug}.jpeg`))) {
+		mod = require(`@/content/projects/${slug}/${slug}.jpeg`);
+	} else if (fs.existsSync(path.join(dir, `${slug}.webp`))) {
+		mod = require(`@/content/projects/${slug}/${slug}.webp`);
+	} else {
 		return undefined;
 	}
-	const mod = require(`@/content/projects/${slug}/${slug}.png`);
-	return (mod.default ?? mod) as StaticImageData;
+	return ((mod as { default?: StaticImageData }).default ?? mod) as StaticImageData;
 }
 
 function readProject(slug: string): { project: Project; body: string } {

@@ -8,6 +8,7 @@ import { getAllProjectSlugs, getProjectBySlug } from "@/lib/projects";
 const tagColor: Record<string, string> = {
 	rust: "text-tag-rust",
 	typescript: "text-tag-ts",
+	wasm: "text-tag-wasm",
 	infra: "text-cyan",
 	proxmox: "text-orange-400",
 	Go: "text-[#00ADD8]"
@@ -79,8 +80,14 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 				</header>
 
 				{project.thumbnail && (
-					<div className="relative mb-10 aspect-video w-full overflow-hidden border border-border-soft bg-surface-raised">
-						<Image src={project.thumbnail} alt={project.title} fill className="object-contain p-4" />
+					<div className="mb-10 overflow-hidden border border-border-soft">
+						<Image
+							src={project.thumbnail}
+							alt={project.title}
+							width={1600}
+							height={900}
+							className="h-auto w-full"
+						/>
 					</div>
 				)}
 

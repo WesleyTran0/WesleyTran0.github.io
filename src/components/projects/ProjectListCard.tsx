@@ -5,6 +5,7 @@ import type { Project } from "@/lib/projects";
 const tagColor: Record<string, string> = {
 	rust: "text-tag-rust",
 	typescript: "text-tag-ts",
+	wasm: "text-tag-wasm",
 	infra: "text-cyan",
 	proxmox: "text-orange-400",
 	Go: "text-[#00ADD8]"
@@ -16,13 +17,13 @@ export default function ProjectListCard({ project }: { project: Project }) {
 			href={`/projects/${project.slug}`}
 			className="group flex gap-6 border-b border-border-soft py-7 transition-colors duration-200 max-sm:flex-col max-sm:gap-4"
 		>
-			<div className="relative aspect-[4/3] w-56 shrink-0 overflow-hidden bg-surface-raised max-sm:aspect-[16/9] max-sm:w-full">
+			<div className="relative aspect-video w-56 shrink-0 overflow-hidden max-sm:aspect-video max-sm:w-full">
 				{project.thumbnail ? (
 					<Image
 						src={project.thumbnail}
 						alt={project.title}
 						fill
-						className="object-contain p-2 transition-transform duration-300 group-hover:scale-[1.02]"
+						className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
 					/>
 				) : (
 					<div className="flex h-full w-full items-center justify-center font-mono text-sm text-muted-dim">

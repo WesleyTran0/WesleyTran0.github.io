@@ -45,6 +45,7 @@
 	/* tag colors */
 	--color-tag-rust: #dea584;
 	--color-tag-ts: #519aba;
+	--color-tag-wasm: #654ff0;
 }
 
 @layer base {

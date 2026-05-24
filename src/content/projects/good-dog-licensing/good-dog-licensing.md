@@ -4,7 +4,7 @@ shortDescription:
   Northeastern's free music synchronization platform, connecting student musicians and student media makers together.
 frontPageDescription: Northeastern's free music synchronization platform, connecting musicians and media makers together
 tags: [typescript, react, next.js]
-date: 2025-09
+date: 2026-01
 order: 1
 ---
 
