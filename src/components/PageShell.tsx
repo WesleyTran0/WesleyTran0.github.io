@@ -36,12 +36,12 @@ export default function PageShell({ children }: { children: React.ReactNode }) {
 	});
 
 	return (
-		<>
+		<div className="flex min-h-screen flex-col">
 			<ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
 			<HelpModal open={helpOpen} onClose={() => setHelpOpen(false)} />
 			<Navbar onContact={() => setContactOpen(true)} />
-			{children}
+			<main className="flex-1">{children}</main>
 			<Footer onHelp={() => setHelpOpen(true)} />
-		</>
+		</div>
 	);
 }
