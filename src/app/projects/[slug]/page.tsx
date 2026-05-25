@@ -92,7 +92,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 				)}
 
 				<article
-					className="prose-project text-base leading-[1.7] text-text-soft"
+					className="prose-project text-lg leading-[1.7] text-text-soft"
 					dangerouslySetInnerHTML={{ __html: html }}
 				/>
 			</main>

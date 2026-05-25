@@ -17,9 +17,6 @@ export default function ProjectsPage() {
 						<span className="block h-px w-5.75 -translate-y-1.25 bg-accent" aria-hidden="true" />
 						<h1 className="m-0 text-[28px] font-medium tracking-[-0.01em] text-text">projects</h1>
 					</div>
-					<span className="font-mono text-sm text-muted-dim">
-						{projects.length} {projects.length === 1 ? "entry" : "entries"}
-					</span>
 				</div>
 				<div className="flex flex-col border-t border-border-soft">
 					{projects.map((project) => (
