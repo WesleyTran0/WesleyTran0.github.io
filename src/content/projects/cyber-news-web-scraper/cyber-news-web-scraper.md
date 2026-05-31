@@ -10,7 +10,12 @@ date: 2024-12
 order: 2
 ---
 
-A web scraper built in Go to learn the language and automate article aggregation from cybersecurity
-news sources.
+Newsfeed is a web scraper written entirely in go. Staying up to date in cybersecurity is critical,
+but subscribing to multiple newsletters can lead to email clogging. This project instead scrapes for
+articles directly from the urls, providing headlines, dates, and descriptions in a JSON format to be
+exported. This project is not intended to provide an easy way to view these articles. Instead, it is
+meant to coalesce articles from multiple sites in an easily parsed format, so that it articles can
+be displayed elsewhere.
 
-More detail coming soon.
+While it is not in its finished form, I am excited to continue working on a proejct that directly
+helps me in my everyday life.
