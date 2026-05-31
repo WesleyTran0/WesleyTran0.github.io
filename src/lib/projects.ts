@@ -12,6 +12,7 @@ export interface Project {
 	tags: string[];
 	thumbnail?: StaticImageData;
 	href?: string;
+	repo?: string;
 	date: string;
 	order?: number;
 }
@@ -48,6 +49,7 @@ function readProject(slug: string): { project: Project; body: string } {
 		tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
 		thumbnail: loadThumbnail(slug),
 		href: data.href ? String(data.href) : undefined,
+		repo: data.repo ? String(data.repo) : undefined,
 		date: String(data.date ?? ""),
 		order: typeof data.order === "number" ? data.order : undefined
 	};

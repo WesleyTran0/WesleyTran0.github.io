@@ -66,16 +66,28 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 								</span>
 							))}
 						</div>
-						{project.href && (
-							<a
-								href={project.href}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="ml-auto font-mono text-sm text-accent hover:underline"
-							>
-								view live ↗
-							</a>
-						)}
+						<div className="ml-auto flex items-center gap-4">
+							{project.repo && (
+								<a
+									href={project.repo}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="font-mono text-sm text-accent hover:underline"
+								>
+									see it on github ↗
+								</a>
+							)}
+							{project.href && (
+								<a
+									href={project.href}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="font-mono text-sm text-accent hover:underline"
+								>
+									view live ↗
+								</a>
+							)}
+						</div>
 					</div>
 				</header>
 

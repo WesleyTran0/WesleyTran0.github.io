@@ -37,7 +37,7 @@ export default function Footer({ onHelp }: FooterProps) {
 					</button>{" "}
 					for help
 				</div>
-				<div className="flex gap-5">
+				<div className="flex gap-5 pr-1.5">
 					<a
 						href="https://github.com/WesleyTran0"
 						target="_blank"
