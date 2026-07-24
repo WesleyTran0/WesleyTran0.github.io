@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ProjectCard from "./ProjectCard";
 import type { Project } from "@/lib/projects";
 
@@ -26,12 +27,12 @@ export default function SelectedWork({ projects }: { projects: Project[] }) {
 				))}
 			</div>
 			<div className="flex justify-end pt-5">
-				<a
+				<Link
 					href="/projects"
 					className="group text-base text-muted transition-colors hover:text-accent"
 				>
 					view archive <span className="text-accent group-hover:text-accent">↗</span>
-				</a>
+				</Link>
 			</div>
 		</section>
 	);

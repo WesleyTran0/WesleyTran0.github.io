@@ -11,6 +11,8 @@ export interface Project {
 	frontPageDescription?: string;
 	tags: string[];
 	thumbnail?: StaticImageData;
+	video?: string;
+	poster?: string;
 	href?: string;
 	repo?: string;
 	date: string;
@@ -18,14 +20,23 @@ export interface Project {
 }
 
 const PROJECTS_DIR = path.join(process.cwd(), "src", "content", "projects");
+const PUBLIC_PROJECTS_DIR = path.join(process.cwd(), "public", "projects");
+
+function loadVideo(slug: string): { video?: string; poster?: string } {
+	const mp4 = path.join(PUBLIC_PROJECTS_DIR, slug, `${slug}.mp4`);
+	if (!fs.existsSync(mp4)) return {};
+	const posterPath = path.join(PUBLIC_PROJECTS_DIR, slug, `${slug}.webp`);
+	return {
+		video: `/projects/${slug}/${slug}.mp4`,
+		poster: fs.existsSync(posterPath) ? `/projects/${slug}/${slug}.webp` : undefined
+	};
+}
 
 function loadThumbnail(slug: string): StaticImageData | undefined {
 	const dir = path.join(PROJECTS_DIR, slug);
 	let mod: { default?: StaticImageData } | StaticImageData | undefined;
 	if (fs.existsSync(path.join(dir, `${slug}.png`))) {
 		mod = require(`@/content/projects/${slug}/${slug}.png`);
-	} else if (fs.existsSync(path.join(dir, `${slug}.gif`))) {
-		mod = require(`@/content/projects/${slug}/${slug}.gif`);
 	} else if (fs.existsSync(path.join(dir, `${slug}.jpg`))) {
 		mod = require(`@/content/projects/${slug}/${slug}.jpg`);
 	} else if (fs.existsSync(path.join(dir, `${slug}.jpeg`))) {
@@ -41,6 +52,7 @@ function loadThumbnail(slug: string): StaticImageData | undefined {
 function readProject(slug: string): { project: Project; body: string } {
 	const raw = fs.readFileSync(path.join(PROJECTS_DIR, slug, `${slug}.md`), "utf8");
 	const { data, content } = matter(raw);
+	const { video, poster } = loadVideo(slug);
 	const project: Project = {
 		slug,
 		title: String(data.title ?? slug),
@@ -48,6 +60,8 @@ function readProject(slug: string): { project: Project; body: string } {
 		frontPageDescription: data.frontPageDescription ? String(data.frontPageDescription) : undefined,
 		tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
 		thumbnail: loadThumbnail(slug),
+		video,
+		poster,
 		href: data.href ? String(data.href) : undefined,
 		repo: data.repo ? String(data.repo) : undefined,
 		date: String(data.date ?? ""),

@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { tagClass } from "@/lib/tagColors";
+
 interface ProjectCardProps {
 	title: string;
 	description: string;
@@ -5,17 +8,9 @@ interface ProjectCardProps {
 	href?: string;
 }
 
-const tagColor: Record<string, string> = {
-	rust: "text-tag-rust",
-	typescript: "text-tag-ts",
-	infra: "text-cyan",
-	proxmox: "text-orange-400",
-	Go: "text-[#00ADD8]"
-};
-
 export default function ProjectCard({ title, description, tags, href }: ProjectCardProps) {
 	return (
-		<a
+		<Link
 			href={href ?? "#"}
 			className="group flex min-h-47.5 cursor-pointer flex-col bg-background px-6 pt-6 pb-5 transition-colors duration-200 hover:bg-surface-alt"
 		>
@@ -26,7 +21,7 @@ export default function ProjectCard({ title, description, tags, href }: ProjectC
 			<div className="mt-1 mb-3 flex items-center justify-between">
 				<div className="flex gap-3 font-mono text-[13px] tracking-[0.04em]">
 					{tags.map((tag) => (
-						<span key={tag} className={tagColor[tag] ?? "text-muted"}>
+						<span key={tag} className={tagClass(tag)}>
 							{tag}
 						</span>
 					))}
@@ -35,6 +30,6 @@ export default function ProjectCard({ title, description, tags, href }: ProjectC
 					↗
 				</span>
 			</div>
-		</a>
+		</Link>
 	);
 }

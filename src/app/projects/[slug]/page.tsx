@@ -1,18 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageShell from "@/components/PageShell";
+import ProjectThumbnail from "@/components/projects/ProjectThumbnail";
 import { getAllProjectSlugs, getProjectBySlug } from "@/lib/projects";
-
-const tagColor: Record<string, string> = {
-	rust: "text-tag-rust",
-	typescript: "text-tag-ts",
-	wasm: "text-tag-wasm",
-	infra: "text-cyan",
-	proxmox: "text-orange-400",
-	Go: "text-[#00ADD8]"
-};
+import { tagClass } from "@/lib/tagColors";
 
 export function generateStaticParams() {
 	return getAllProjectSlugs().map((slug) => ({ slug }));
@@ -61,7 +53,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 					<div className="mt-4 flex items-center gap-4">
 						<div className="flex flex-wrap gap-3 font-mono text-[13px] tracking-[0.04em]">
 							{project.tags.map((tag) => (
-								<span key={tag} className={tagColor[tag] ?? "text-muted"}>
+								<span key={tag} className={tagClass(tag)}>
 									{tag}
 								</span>
 							))}
@@ -91,15 +83,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 					</div>
 				</header>
 
-				{project.thumbnail && (
+				{(project.video || project.thumbnail) && (
 					<div className="mb-10 overflow-hidden border border-border-soft">
-						<Image
-							src={project.thumbnail}
-							alt={project.title}
-							width={1600}
-							height={900}
-							className="h-auto w-full"
-						/>
+						<ProjectThumbnail project={project} />
 					</div>
 				)}
 

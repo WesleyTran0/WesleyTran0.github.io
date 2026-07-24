@@ -1,15 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
-
-const tagColor: Record<string, string> = {
-	rust: "text-tag-rust",
-	typescript: "text-tag-ts",
-	wasm: "text-tag-wasm",
-	infra: "text-cyan",
-	proxmox: "text-orange-400",
-	Go: "text-[#00ADD8]"
-};
+import { tagClass } from "@/lib/tagColors";
+import ProjectThumbnail from "./ProjectThumbnail";
 
 export default function ProjectListCard({ project }: { project: Project }) {
 	return (
@@ -18,18 +10,11 @@ export default function ProjectListCard({ project }: { project: Project }) {
 			className="group flex gap-6 border-b border-border-soft py-7 transition-colors duration-200 max-sm:flex-col max-sm:gap-4"
 		>
 			<div className="relative aspect-video w-56 shrink-0 overflow-hidden max-sm:aspect-video max-sm:w-full">
-				{project.thumbnail ? (
-					<Image
-						src={project.thumbnail}
-						alt={project.title}
-						fill
-						className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-					/>
-				) : (
-					<div className="flex h-full w-full items-center justify-center font-mono text-sm text-muted-dim">
-						no preview
-					</div>
-				)}
+				<ProjectThumbnail
+					project={project}
+					fill
+					className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+				/>
 			</div>
 			<div className="flex flex-1 flex-col">
 				<div className="mb-2 flex items-baseline justify-between gap-4">
@@ -44,7 +29,7 @@ export default function ProjectListCard({ project }: { project: Project }) {
 				<div className="mt-4 flex items-center justify-between">
 					<div className="flex flex-wrap gap-3 font-mono text-[13px] tracking-[0.04em]">
 						{project.tags.map((tag) => (
-							<span key={tag} className={tagColor[tag] ?? "text-muted"}>
+							<span key={tag} className={tagClass(tag)}>
 								{tag}
 							</span>
 						))}
