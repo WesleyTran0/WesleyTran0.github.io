@@ -1,9 +1,0 @@
-<script lang="ts">
-	import Icon from '@iconify/svelte';
-	import Card from '../Card.svelte';
-</script>
-
-<Card class="flex flex-row items-center h-9 py-6 px-3 w-fit space-x-2" padding={false}>
-	<Icon icon="logos:trpc" class="h-8 w-8" />
-	<span>TRPC</span>
-</Card>

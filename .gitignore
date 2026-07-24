@@ -1,12 +1,9 @@
 node_modules
 
-# Output
-.output
-.vercel
-.netlify
-.wrangler
-/.svelte-kit
+# Next.js
+.next
 /build
+/out
 
 # OS
 .DS_Store
@@ -18,6 +15,6 @@ Thumbs.db
 !.env.example
 !.env.test
 
-# Vite
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
