@@ -38,9 +38,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 					>
 						← all blogs
 					</Link>
-					{post.date && (
-						<span className="font-mono text-sm text-muted-dim">{post.date}</span>
-					)}
+					{post.date && <span className="font-mono text-sm text-muted-dim">{post.date}</span>}
 				</div>
 
 				<article

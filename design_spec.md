@@ -1,7 +1,7 @@
 # wesleytran.dev — design spec
 
-A single-page personal portfolio. Astrodark theme, Figtree as primary type, JetBrains Mono for terminal-flavored chrome.
-Slim centered content column on a wide page.
+A single-page personal portfolio. Astrodark theme, Figtree as primary type, JetBrains Mono for
+terminal-flavored chrome. Slim centered content column on a wide page.
 
 ## stack assumptions
 
@@ -56,8 +56,8 @@ These map onto Tailwind theme tokens. Use them via `var(--color-*)` or Tailwind 
 **Rules**:
 
 - Never use pure black or pure white. The deepest is `#111317`, the brightest text is `#adb0bb`.
-- Accent blue is the _only_ primary accent. Other palette colors (green, purple, cyan, orange) are reserved for semantic
-  tags (status indicators, category coloring) — never decoration.
+- Accent blue is the _only_ primary accent. Other palette colors (green, purple, cyan, orange) are
+  reserved for semantic tags (status indicators, category coloring) — never decoration.
 
 ---
 
@@ -89,8 +89,8 @@ Load both via Google Fonts. Figtree weights: 400, 500, 600. JetBrains Mono weigh
 | Card numbers / tags    | 10px | 400    | 1.5         | 0.04em         | mono |
 | Now row tags           | 10px | 400    | 1.5         | 0.04em         | mono |
 
-Mono is used only for: eyebrow status, info strip (location/studying/etc), section meta (counts/dates), card numbers,
-card tags, now-row tags. Everything else is Figtree.
+Mono is used only for: eyebrow status, info strip (location/studying/etc), section meta
+(counts/dates), card numbers, card tags, now-row tags. Everything else is Figtree.
 
 ---
 
@@ -106,7 +106,8 @@ card tags, now-row tags. Everything else is Figtree.
 
 ## sections
 
-The page top-to-bottom: nav → ASCII rule → hero (intro + bio + now + info) → selected work grid → footer.
+The page top-to-bottom: nav → ASCII rule → hero (intro + bio + now + info) → selected work grid →
+footer.
 
 ### 1. nav
 
@@ -124,7 +125,8 @@ The page top-to-bottom: nav → ASCII rule → hero (intro + bio + now + info) �
 - label in `--color-muted` by default, `--color-text` on hover and when active
 - 6px gap between bracket-number and label text
 
-Active state is set based on which section is currently in view (use IntersectionObserver). Default is `[1] about`.
+Active state is set based on which section is currently in view (use IntersectionObserver). Default
+is `[1] about`.
 
 ```jsx
 <nav>
@@ -147,7 +149,8 @@ Active state is set based on which section is currently in view (use Intersectio
 
 ### 2. decorative rule
 
-A long em-dash line that sits below the nav. Purely visual texture — overflow hidden, user-select none.
+A long em-dash line that sits below the nav. Purely visual texture — overflow hidden, user-select
+none.
 
 - Background: `--color-surface` (matches nav)
 - Color: `--color-muted-dim`
@@ -172,35 +175,39 @@ Above the intro one-liner. Mono 11px:
 
 #### intro one-liner
 
-22px Figtree, weight 400, color `--color-text`, line-height 1.45, letter-spacing -0.01em, 32px bottom margin:
+22px Figtree, weight 400, color `--color-text`, line-height 1.45, letter-spacing -0.01em, 32px
+bottom margin:
 
-> hi, i'm wesley — a cs & cybersecurity student in boston who spends most of his time a few layers below where things
-> usually break.
+> hi, i'm wesley — a cs & cybersecurity student in boston who spends most of his time a few layers
+> below where things usually break.
 
 The em-dash should be `--color-accent`.
 
 #### bio paragraphs
 
-Two paragraphs, 15px Figtree, color `--color-text-soft`, line-height 1.7, 22px bottom margin between paragraphs:
+Two paragraphs, 15px Figtree, color `--color-text-soft`, line-height 1.7, 22px bottom margin between
+paragraphs:
 
-1. "i'm a third-year at northeastern, splitting time between _sandbox_, the student-run software consultancy where i
-   ship full-stack work for real clients, and _ccdc + ctf club_, where my team recently took first at the ncae regional
-   competition."
-2. "i'm drawn to the layers most people skip past: writing my own dns resolver in rust, building tcp from scratch with
-   reno-style congestion control, exploiting 32-bit binaries with rop chains. **arch linux** on a thinkpad,
-   **astronvim** for everything, a proxmox homelab i tinker with on weekends."
+1. "i'm a third-year at northeastern, splitting time between _sandbox_, the student-run software
+   consultancy where i ship full-stack work for real clients, and _ccdc + ctf club_, where my team
+   recently took first at the ncae regional competition."
+2. "i'm drawn to the layers most people skip past: writing my own dns resolver in rust, building tcp
+   from scratch with reno-style congestion control, exploiting 32-bit binaries with rop chains.
+   **arch linux** on a thinkpad, **astronvim** for everything, a proxmox homelab i tinker with on
+   weekends."
 
 Markup rules:
 
 - `<strong>` → `--color-text`, weight 500
-- `<em>` → `--color-accent`, normal style (not italic), `border-bottom: 1px dotted rgba(80,164,233,0.3)`. On hover,
-  border becomes solid `--color-accent`. These should eventually link to the related thing (sandbox →
-  sandbox.northeastern.edu; ccdc → relevant page).
+- `<em>` → `--color-accent`, normal style (not italic),
+  `border-bottom: 1px dotted rgba(80,164,233,0.3)`. On hover, border becomes solid `--color-accent`.
+  These should eventually link to the related thing (sandbox → sandbox.northeastern.edu; ccdc →
+  relevant page).
 
 #### "now" list
 
-Lives between the bio and the info strip. Prefaced by an italic caption: "a few things on my mind lately:" in
-`--color-muted`, 13px, italic, 16px bottom margin.
+Lives between the bio and the info strip. Prefaced by an italic caption: "a few things on my mind
+lately:" in `--color-muted`, 13px, italic, 16px bottom margin.
 
 The list itself is a series of rows. Each row:
 
@@ -218,7 +225,8 @@ Each label is mono 10px uppercase, with a semantic color:
 | `LIFE`     | `--color-cyan`               | personal / lifestyle       |
 | `WORKING`  | `--color-accent`             | (optional) active job work |
 
-Row text: 14px Figtree, `--color-text-soft`, line-height 1.55. `<strong>` inside gets `--color-text`, weight 500.
+Row text: 14px Figtree, `--color-text-soft`, line-height 1.55. `<strong>` inside gets
+`--color-text`, weight 500.
 
 Sample rows:
 
@@ -235,8 +243,8 @@ Bottom margin: 32px, before the info strip.
 
 Mono 12px, line-height 2.0, top border `1px solid --color-border-soft`, 24px top padding.
 
-Each row is a flex row: key column (110px wide) + value. Key is `--color-muted`, prefixed by `> ` in `--color-accent`.
-Value is `--color-text`.
+Each row is a flex row: key column (110px wide) + value. Key is `--color-muted`, prefixed by `> ` in
+`--color-accent`. Value is `--color-text`.
 
 ```
 > location    boston, ma
@@ -255,16 +263,16 @@ The `+` in "cs + cybersecurity" should be `--color-accent`.
 
 Flex row, justify-between, baseline-aligned, 24px bottom margin.
 
-**Title** (left): "selected work", 18px Figtree, weight 500, `--color-text`, letter-spacing -0.01em. Preceded by an
-18px-wide, 1px-tall accent rule sitting just above the baseline, with 9.6px gap. Implement with `::before` or a flex
-child.
+**Title** (left): "selected work", 18px Figtree, weight 500, `--color-text`, letter-spacing -0.01em.
+Preceded by an 18px-wide, 1px-tall accent rule sitting just above the baseline, with 9.6px gap.
+Implement with `::before` or a flex child.
 
 **Meta** (right): "004 · 2024–26", mono 11px, `--color-muted-dim`.
 
 #### grid
 
-2 columns, 1fr each. The "borders" are achieved with a 1px gap and a `--color-border-soft` background showing through,
-plus a 1px outer border.
+2 columns, 1fr each. The "borders" are achieved with a 1px gap and a `--color-border-soft`
+background showing through, plus a 1px outer border.
 
 ```css
 .grid {
@@ -288,15 +296,17 @@ Each card has a solid `--color-background` so the grid lines show through the ga
 **Top row** (flex justify-between, 12px bottom margin):
 
 - Card number (`01`, `02`, ...): mono 10px, `--color-muted-dim`
-- Arrow `↗`: mono 13px, `--color-muted`. On hover, color shifts to `--color-accent` and translates `(2px, -2px)`
-  (transition 200ms).
+- Arrow `↗`: mono 13px, `--color-muted`. On hover, color shifts to `--color-accent` and translates
+  `(2px, -2px)` (transition 200ms).
 
-**Title**: 17px Figtree, weight 500, `--color-text`, letter-spacing -0.01em, 6px bottom margin. On card hover: shifts to
-`--color-accent`.
+**Title**: 17px Figtree, weight 500, `--color-text`, letter-spacing -0.01em, 6px bottom margin. On
+card hover: shifts to `--color-accent`.
 
-**Description**: 13px Figtree, `--color-text-soft`, line-height 1.55, `margin-bottom: auto` so tags push to the bottom.
+**Description**: 13px Figtree, `--color-text-soft`, line-height 1.55, `margin-bottom: auto` so tags
+push to the bottom.
 
-**Tags**: flex row, 10px gap, mono 10px, letter-spacing 0.04em. The first tag (language tag) is colored:
+**Tags**: flex row, 10px gap, mono 10px, letter-spacing 0.04em. The first tag (language tag) is
+colored:
 
 - `rust` → `--color-tag-rust`
 - `typescript` → `--color-tag-ts`
@@ -329,8 +339,8 @@ Other tags are always `--color-muted`.
 
 #### "view archive" link
 
-Below the grid, right-aligned, 16px top padding. 13px Figtree, `--color-muted` with `↗` in `--color-accent`. On hover,
-full text becomes `--color-accent`.
+Below the grid, right-aligned, 16px top padding. 13px Figtree, `--color-muted` with `↗` in
+`--color-accent`. On hover, full text becomes `--color-accent`.
 
 For now, links to `#` or to `/archive` if you build that route.
 
@@ -344,13 +354,14 @@ For now, links to `#` or to `/archive` if you build that route.
 
 **Left**: keyboard hints. "press [1][2][3] to navigate · [?] for help".
 
-- Each `<kbd>` badge: `--color-accent` text on `--color-surface-raised` background, 1px `--color-border` border, 3px
-  border-radius, padding `1px 6px`, 11px font-size, weight 500, 2px horizontal margin
+- Each `<kbd>` badge: `--color-accent` text on `--color-surface-raised` background, 1px
+  `--color-border` border, 3px border-radius, padding `1px 6px`, 11px font-size, weight 500, 2px
+  horizontal margin
 - Use `font-family: inherit` on kbd so it stays in Figtree
 - The `?` triggers a help modal listing shortcuts (build later)
 
-**Right**: social links. Flex row, 24px gap. "github · linkedin · email". Each item is `--color-muted` default,
-`--color-accent` on hover.
+**Right**: social links. Flex row, 24px gap. "github · linkedin · email". Each item is
+`--color-muted` default, `--color-accent` on hover.
 
 ---
 
@@ -384,13 +395,15 @@ Content (final):
 
 ### scroll-spy nav active state
 
-Use `IntersectionObserver` to detect which section is in viewport. Whichever section's top is closest to (but past) the
-nav line gets the active state in the nav links. Update the active class accordingly.
+Use `IntersectionObserver` to detect which section is in viewport. Whichever section's top is
+closest to (but past) the nav line gets the active state in the nav links. Update the active class
+accordingly.
 
 ### hover specs
 
-Already documented per element above. General principle: 150–200ms transitions, color shifts toward `--color-accent` for
-clickable elements, surfaces shift one step lighter (`--color-surface-alt`) on card hover.
+Already documented per element above. General principle: 150–200ms transitions, color shifts toward
+`--color-accent` for clickable elements, surfaces shift one step lighter (`--color-surface-alt`) on
+card hover.
 
 ---
 
@@ -398,15 +411,17 @@ clickable elements, surfaces shift one step lighter (`--color-surface-alt`) on c
 
 The site is intentionally narrow even on desktop (540px content column). Mobile adjustments needed:
 
-- Nav: at <640px, the brand and full link list might overflow. Consider hiding the keyboard `[N]` brackets at small
-  sizes, or collapsing to a hamburger if the brand + 3 links don't fit.
-  - Simplest path: at <500px, show nav as `[1] [2] [3]` only (numbers, no labels). Labels return at >=500px.
+- Nav: at <640px, the brand and full link list might overflow. Consider hiding the keyboard `[N]`
+  brackets at small sizes, or collapsing to a hamburger if the brand + 3 links don't fit.
+  - Simplest path: at <500px, show nav as `[1] [2] [3]` only (numbers, no labels). Labels return
+    at >=500px.
 - Page padding: still 24px on mobile (the content column already fits comfortably)
 - Selected work grid: collapse to single column at <500px
 - Now rows: keep two-column structure but reduce label column from 80px to 70px
 - Footer: stack the two halves vertically at <500px, 8px gap
 
-The decorative em-dash rule should still overflow horizontally on mobile and be hidden — that's correct behavior.
+The decorative em-dash rule should still overflow horizontally on mobile and be hidden — that's
+correct behavior.
 
 ---
 
@@ -436,8 +451,8 @@ data/
   info.ts               — info strip rows as data
 ```
 
-Keep content as data (TypeScript objects in `data/`) so updating "now" or adding a project is one diff in one file, not
-a markup change.
+Keep content as data (TypeScript objects in `data/`) so updating "now" or adding a project is one
+diff in one file, not a markup change.
 
 ---
 
@@ -454,8 +469,9 @@ a markup change.
 
 ## quick start prompt for claude code
 
-> read design-spec.md and implement the home page. start with `globals.css` for the theme tokens, then build the
-> components in order: Nav, Hero (with NowList + InfoStrip subcomponents), SelectedWork (with ProjectCard), Footer. Wire
-> up the keyboard navigation hook last. use Tailwind v4 utility classes where reasonable but use CSS variables directly
-> when a Tailwind class would be awkward. keep content as TypeScript data in `data/`. don't build the modals yet — just
-> stub the triggers.
+> read design-spec.md and implement the home page. start with `globals.css` for the theme tokens,
+> then build the components in order: Nav, Hero (with NowList + InfoStrip subcomponents),
+> SelectedWork (with ProjectCard), Footer. Wire up the keyboard navigation hook last. use Tailwind
+> v4 utility classes where reasonable but use CSS variables directly when a Tailwind class would be
+> awkward. keep content as TypeScript data in `data/`. don't build the modals yet — just stub the
+> triggers.

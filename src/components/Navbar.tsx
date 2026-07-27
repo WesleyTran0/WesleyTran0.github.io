@@ -32,11 +32,7 @@ export default function Navbar({ onContact }: NavbarProps) {
 
 	return (
 		<nav className="sticky top-0 z-30 flex items-center justify-between border-b border-border-soft bg-surface px-7 py-5 text-[16px]">
-			<Link
-				href="/#about"
-				onClick={handleAboutClick}
-				className="font-medium text-text"
-			>
+			<Link href="/#about" onClick={handleAboutClick} className="font-medium text-text">
 				wesleytran<span className="text-accent">.me</span>
 			</Link>
 			<ul className="m-0 flex list-none gap-7 p-0">
@@ -62,11 +58,7 @@ export default function Navbar({ onContact }: NavbarProps) {
 					</Link>
 				</li>
 				<li>
-					<button
-						onClick={onContact}
-						className="flex items-center gap-2"
-						aria-label="open contact"
-					>
+					<button onClick={onContact} className="flex items-center gap-2" aria-label="open contact">
 						<span className="font-medium text-accent">[3]</span>
 						<span className={inactiveLabelClass}>contact</span>
 					</button>
