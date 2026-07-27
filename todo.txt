@@ -1,0 +1,1 @@
+x 2026-07-27 (A) 2026-07-27 README.md is stale SvelteKit boilerplate; rewrite for the Next.js site +bug
