@@ -1,7 +1,7 @@
 const info = [
 	{ key: "location", html: "boston, ma" },
 	{ key: "studying", html: "cybersecurity @ northeastern" },
-	{ key: "working", html: "Security Research Intern @ Griffiss Institute" },
+	{ key: "working", html: "Data Security Intern/Co-Op @ Schneider Electric" },
 	{ key: "tools", html: "arch · astronvim · rust" }
 ];
 
