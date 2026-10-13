@@ -2,8 +2,8 @@ node_modules
 
 # Next.js
 .next
-/build
-/out
+/frontend/build
+/frontend/out
 
 # OS
 .DS_Store
