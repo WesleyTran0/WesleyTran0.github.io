@@ -18,3 +18,6 @@ Thumbs.db
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Rust
+/backend/target
