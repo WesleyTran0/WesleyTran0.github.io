@@ -1,18 +1,28 @@
 use axum::Json;
-use axum::{Router, routing::get};
 use serde::Serialize;
+use utoipa::ToSchema;
+use utoipa_axum::router::OpenApiRouter;
+use utoipa_axum::routes;
 
-#[derive(Serialize)]
+#[derive(Serialize, ToSchema)]
 struct HealthResponse {
     status: String,
 }
 
+/// This is a health query to see if the api is healthy
+#[utoipa::path(
+    get, 
+    path = "/health",
+    responses(
+        (status = 200, description = "Health checked successfully", body = HealthResponse),
+    ),
+)]
 async fn health_check() -> Json<HealthResponse> {
     Json(HealthResponse {
         status: "ok".to_string(),
     })
 }
 
-pub fn router() -> Router {
-    Router::new().route("/health", get(health_check))
+pub fn router() -> OpenApiRouter {
+    OpenApiRouter::new().routes(routes!(health_check))
 }

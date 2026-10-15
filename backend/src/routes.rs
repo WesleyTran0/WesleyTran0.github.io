@@ -1,7 +1,7 @@
-use axum::Router;
+use utoipa_axum::router::OpenApiRouter;
 
 mod health;
 
-pub fn router() -> Router<()> {
-    Router::new().merge(health::router())
+pub fn router() -> OpenApiRouter<()> {
+    OpenApiRouter::new().merge(health::router())
 }
