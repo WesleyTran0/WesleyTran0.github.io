@@ -1,9 +1,12 @@
 use axum::serve;
+use backend::common::config::Config;
 use tokio::{net::TcpListener, signal};
 use tracing_subscriber::EnvFilter;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    let config = Config::from_env()?;
+
     tracing_subscriber::fmt()
         .with_env_filter(
             EnvFilter::try_from_default_env()
@@ -15,7 +18,7 @@ async fn main() -> anyhow::Result<()> {
 
     let app = backend::app::build();
 
-    let listener = TcpListener::bind("0.0.0.0:3000").await?;
+    let listener = TcpListener::bind(("0.0.0.0", config.port)).await?;
     tracing::info!("listening on {}", listener.local_addr()?);
     serve(listener, app)
         .with_graceful_shutdown(shutdown_signal())
