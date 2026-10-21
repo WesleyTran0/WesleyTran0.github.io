@@ -12,7 +12,7 @@ impl Config {
         let port = match std::env::var("PORT") {
             Ok(port_str) => port_str
                 .parse::<u16>()
-                .context("PORT must be an integer betewen 0 and 65535.")?,
+                .context("PORT must be an integer between 0 and 65535.")?,
             Err(_) => 3000,
         };
 

@@ -4,6 +4,8 @@ use utoipa::ToSchema;
 use utoipa_axum::router::OpenApiRouter;
 use utoipa_axum::routes;
 
+use crate::common::state::AppState;
+
 #[derive(Serialize, ToSchema)]
 struct HealthResponse {
     status: String,
@@ -23,6 +25,6 @@ async fn health_check() -> Json<HealthResponse> {
     })
 }
 
-pub fn router() -> OpenApiRouter {
+pub fn router() -> OpenApiRouter<AppState> {
     OpenApiRouter::new().routes(routes!(health_check))
 }

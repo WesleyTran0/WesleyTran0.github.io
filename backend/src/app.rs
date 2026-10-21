@@ -4,9 +4,9 @@ use utoipa::OpenApi;
 use utoipa_axum::router::OpenApiRouter;
 use utoipa_swagger_ui::SwaggerUi;
 
-use crate::{docs::ApiDoc, routes};
+use crate::{common::state::AppState, docs::ApiDoc, routes};
 
-pub fn build() -> Router<()> {
+pub fn build() -> Router<AppState> {
     let (plain, spec) = OpenApiRouter::with_openapi(ApiDoc::openapi())
         .nest("/v1", routes::router())
         .split_for_parts();
