@@ -13,7 +13,7 @@ impl Config {
             Ok(port_str) => port_str
                 .parse::<u16>()
                 .context("PORT must be an integer between 0 and 65535.")?,
-            Err(_) => 3000,
+            Err(_) => 8080,
         };
 
         let database_url = std::env::var("DATABASE_URL").context("DATABASE_URL must be set")?;

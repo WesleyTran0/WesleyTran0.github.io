@@ -1,11 +1,14 @@
+use std::sync::Arc;
+
 use axum::serve;
-use backend::common::config::Config;
+use backend::common::{config::Config, db, state::AppState};
 use tokio::{net::TcpListener, signal};
 use tracing_subscriber::EnvFilter;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     let config = Config::from_env()?;
+    let port = config.port;
 
     tracing_subscriber::fmt()
         .with_env_filter(
@@ -14,11 +17,16 @@ async fn main() -> anyhow::Result<()> {
         )
         .init();
 
-    // db connection
+    let pool = db::connect(&config.database_url).await?;
+    tracing::info!("database connected");
 
-    let app = backend::app::build();
+    let app_state = AppState {
+        pool,
+        config: Arc::new(config),
+    };
+    let app = backend::app::build(app_state);
 
-    let listener = TcpListener::bind(("0.0.0.0", config.port)).await?;
+    let listener = TcpListener::bind(("0.0.0.0", port)).await?;
     tracing::info!("listening on {}", listener.local_addr()?);
     serve(listener, app)
         .with_graceful_shutdown(shutdown_signal())

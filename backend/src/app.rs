@@ -6,12 +6,13 @@ use utoipa_swagger_ui::SwaggerUi;
 
 use crate::{common::state::AppState, docs::ApiDoc, routes};
 
-pub fn build() -> Router<AppState> {
+pub fn build(state: AppState) -> Router<()> {
     let (plain, spec) = OpenApiRouter::with_openapi(ApiDoc::openapi())
         .nest("/v1", routes::router())
         .split_for_parts();
 
     plain
         .merge(SwaggerUi::new("/docs").url("/openapi.json", spec))
+        .with_state(state)
         .layer(TraceLayer::new_for_http())
 }

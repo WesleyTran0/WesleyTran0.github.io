@@ -84,3 +84,12 @@ impl IntoResponse for AppError {
         (status, Json(body)).into_response()
     }
 }
+
+impl From<sqlx::Error> for AppError {
+    fn from(err: sqlx::Error) -> Self {
+        match err {
+            sqlx::Error::RowNotFound => AppError::NotFound,
+            _ => AppError::Internal(err.into()),
+        }
+    }
+}
